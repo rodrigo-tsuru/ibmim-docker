@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- Provided for use only by developers of IBM products
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+<HTML LANG="en">
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+</head>
+<script src="../jscp.js">
+<%@ include file="global.head" %>
+<body>
+
+<%= property('mainContent') %>
+
+<%
+  for (var i in top.diskLabel['compatible'])
+  {
+  %>
+    <%=  i %>  =  <%= top.diskLabel['compatible'][i] %> <br>
+  <%
+   }
+%>
+
+</body>
+</script>
+</HTML>

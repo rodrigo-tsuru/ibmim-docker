@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Eclipse-PlatformFilter: (osgi.os=linux)
+Bundle-Vendor: %providerName
+Bundle-Localization: fragment-linux
+Fragment-Host: com.ibm.cic.licensing.lum;bundle-version="7.0.2"
+Bundle-Name: %fragmentName
+Bundle-SymbolicName: com.ibm.cic.licensing.lum.linux;singleton:=true
+Bundle-Version: 8.1.1006.v20130818_1838
+Bundle-ManifestVersion: 2
+

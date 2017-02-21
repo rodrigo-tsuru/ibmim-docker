@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Bundle-SymbolicName: com.ibm.cic.licensing.lum;singleton:=true
+Bundle-Activator: com.ibm.cic.licensing.lum.Activator
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,5.0.0)
+ ",com.ibm.icu;bundle-version="[3.4.4,5.0.0)",com.ibm.cic.licensing.co
+ mmon.util;bundle-version="[7.0.0,8.0.0)",com.ibm.cic.licensing.common
+ .core;bundle-version="[7.0.0,8.0.0)"
+Bundle-Version: 7.0.200.v20130818_1838
+Export-Package: com.ibm.LUMClient,com.ibm.cic.licensing.lum,com.ibm.ci
+ c.licensing.lum.enroll
+Bundle-ClassPath: lumlicensing.jar,LUM_jars/LUMClient.jar
+Bundle-Vendor: %providerName
+Bundle-ActivationPolicy: lazy
+Bundle-Name: %pluginName
+Bundle-ManifestVersion: 2
+

@@ -1,0 +1,164 @@
+/* Licensed Materials - Property of IBM */
+/* 5648-F10 (C) Copyright International Business Machines Corp. 2005 */
+/* All Rights Reserved */
+/* US Government Users Restricted Rights - Use, duplication or disclosure */
+/* restricted by GSA ADP Schedule Contract with IBM Corp. */
+
+/* This section controls the formatting of the navigation frame */
+
+/* This selector controls the navigation frame body global settings */
+
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	color: <%= property('textColor', '#000000') %>;
+	background-color: <%= property('navigationColor', property('backgroundColor', '#ffffff')) %>;
+}
+
+#background_image_wrapper {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	bottom: 0;
+	z-index: 1;
+}
+
+#background_image{
+	width: 100%;
+	height: 200%;
+	position: absolute;
+	bottom: -<%= top.evalJSCP(property('footerHeight', '30')); %>px;
+	background-image: url(<%= findURL(null, property('navigationImage', 'images/transparent.gif')) %>);
+	background-repeat: no-repeat; 
+	background-position: bottom <%= bidiString('right','left') %>;
+}
+.backgroundFade {
+	height: 100%;
+	width: 100%;
+	background-repeat: repeat-x;
+}
+#backgroundFadeWrapper {
+	position: absolute;
+	top: 0;
+	z-index: 2;
+	<%= (property('highContrast','false') == 'false')?' ':'x' %>filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="<%= findURL(null,property('navigationFadeImage', 'images/fadeFromWhite.png')) %>");
+}
+#backgroundFade {
+	background-image:url(<%= findURL(null,property('navigationFadeImage', 'images/fadeFromWhite.png')) %>);
+	<%= (property('highContrast','false') == 'false')?' ':'x' %>filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+.navigation_menu_container {
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+	position: absolute;
+	z-index: 10;
+}
+
+.navigation_menu_padding {
+	padding: 1px 0;
+}
+
+.navigation_menu {
+	display: block;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	text-align: <%= bidiString('right','left') %>;
+	text-decoration: none;
+}
+
+.navigation_menu_block_visible {
+	display: block;
+}
+
+.navigation_menu_block_invisible {
+	display: none;
+}
+
+.menuItemSpan {
+	display: block;
+	padding: 6px 40px;
+	background-repeat: no-repeat;
+	background-position: <%= bidiString('93%','7%') %> 50%;
+}
+
+.navigation_menu_row_selected, 
+.navigation_menu_row_deselected,
+.navigation_menu_row_expanded {
+	display: block;
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: <%= bidiString('93%','7%') %> 50%;
+}
+
+.navigation_menu_row_selected {
+	background-image: url(<%= findURL(null, property('navigationCurrentImage','images/activeLabelIcon' + bidiString('_bidi','') + '.gif')) %>);
+	background-color: <%= property('backgroundColor', '#ffffff') == property('highlightColor', '#ffffff') ? 'transparent' : property('highlightColor', '#ffffff') %>;
+	
+	border-top: solid <%= property('backgroundColor', '#ffffff') == property('borderColor', '#ffffff') ? 'transparent' : property('borderColor', '#ffffff')  %>;
+	border-bottom: solid <%= property('backgroundColor', '#ffffff') == property('borderColor', '#ffffff') ? 'transparent' : property('borderColor', '#ffffff')  %>;
+	border-<%= bidiString('right','left') %>: solid <%= property('backgroundColor', '#ffffff') == property('borderColor', '#ffffff') ? 'transparent' : property('borderColor', '#ffffff')  %>;
+	
+	border-top-width: <%= property('backgroundColor', '#ffffff') == property('borderColor', '#ffffff') ? '0px':'1px' %>;
+	border-bottom-width: <%= property('backgroundColor', '#ffffff') == property('borderColor', '#ffffff') ? '0px':'1px' %>;
+	border-<%= bidiString('right','left') %>-width: <%= property('backgroundColor', '#ffffff') == property('borderColor', '#ffffff') ? '0px':'1px' %>;
+}
+
+.navigation_submenu    {
+	display: block;
+	padding-<%= bidiString('right','left') %>: 22px;
+}
+
+
+.navigation_menu_row_deselected,
+.navigation_menu_row_deselected:visited,
+.navigation_menu_row_expanded,
+.navigation_menu_row_expanded:visited {
+	color: <%= property('textColor', '#000000') %>;
+	text-decoration: none;
+}
+
+.navigation_menu_row_selected, 
+.navigation_menu_row_selected:visited {
+	font-weight: bold;
+	color: <%= property('textColor', '#000000') %>;
+	text-decoration: none;
+}
+
+.navigation_menu_row_deselected:hover,
+.navigation_menu_row_selected:hover,
+.navigation_menu_row_expanded:hover {
+	background-color: <%= property('backgroundColor', '#ffffff') == property('rolloverColor', '#ffffff') ? 'transparent' : property('rolloverColor', '#ffffff') %>;
+}
+
+.active, .current {
+	background-image: url(<%= findURL(null, property('navigationCurrentImage','images/activeLabelIcon' + bidiString('_bidi','') + '.gif')) %>);
+}
+
+.complete {
+	background-image: url(<%= findURL(null, property('navigationCompleteImage','images/completedLabelIcon' + bidiString('_bidi','') + '.gif')) %>);
+
+}
+
+.unvisited {
+	<%= property('navigationMode','default') == 'wizard' ? "background-image: url(" + findURL(null, property('navigationDefaultImage','images/upcomingLabelIcon' + bidiString('_bidi','') + '.gif')) + ");" : " " %>
+}
+
+.incomplete, .warning {
+	background-image: url(<%= findURL(null, property('navigationIncompleteImage','images/warning.gif')) %>);
+}
+
+.error {
+	background-image: url(<%= findURL(null, property('navigationErrorImage','images/error.gif')) %>);
+}
+
+/* HACK:  Fixes issues with scrollbars appearing on mozilla/firefox when the focus box is displayed */
+:link:focus, :visited:focus {
+	margin-left: 1px;
+	margin-right: 1px;
+}

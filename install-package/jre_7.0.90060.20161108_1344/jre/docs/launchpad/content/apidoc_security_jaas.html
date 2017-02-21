@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2006
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+</head>
+
+<script src="../jscp.js">
+<%
+    	var fallBackLocale=property('fallBackLocale');    	
+%>
+
+<%@ include file="global.head" %>
+
+<% loadCSSfiles(DEFAULTCSS, "content.css"); %>
+
+<body>
+
+<h1><%= property('apidoc_security_jaas') %></h1>
+
+<div>
+<p><%= property('overview') %></p>
+
+  <% if ( top.directoryExists( null, "content/apidoc" ) ) { %>
+
+    <ul> 
+
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jaas_aix32' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('aix32_title') %>
+        </a><br />
+        <%= property('aix32_desc') %>
+      </li>
+
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jaas_aix64' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('aix64_title') %>
+        </a><br />
+        <%= property('aix64_desc') %>
+      </li>
+
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jaas_linia32' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('linia32_title') %>
+        </a><br />
+        <%= property('linia32_desc') %>
+      </li>
+
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jaas_linamd64' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('linamd64_title') %>
+        </a><br />
+        <%= property('linamd64_desc') %>
+      </li>
+    
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jaas_linppc32' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('linppc32_title') %>
+        </a><br />
+        <%= property('linppc32_desc') %>
+      </li>
+
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jaas_linppc64' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('linppc64_title') %>
+        </a><br />
+        <%= property('linppc64_desc') %>
+      </li>
+    
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jaas_linz32' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('linz32_title') %>
+        </a><br />
+        <%= property('linz32_desc') %>
+      </li>
+
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jaas_linz64' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('linz64_title') %>
+        </a><br />
+        <%= property('linz64_desc') %>
+      </li>
+    
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jaas_win32' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('win32_title') %>
+        </a><br />
+        <%= property('win32_desc') %>
+      </li>
+
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jaas_win64' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('win64_title') %>
+        </a><br />
+        <%= property('win64_desc') %>
+      </li>
+
+    </ul>
+
+  <% } else { %>
+
+    <p><%= property('compressed') %></p>
+
+  <% } %>
+</div>
+
+</script>
+</body>
+
+</html>

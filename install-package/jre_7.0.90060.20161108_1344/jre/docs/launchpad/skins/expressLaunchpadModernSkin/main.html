@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+<HTML>
+<HEAD>
+
+    <script language="javascript">
+    // These functions are for log frame control.
+    logVisible = false;
+    top.mainWindow = window;
+
+    // Show log frame at load time if requested
+    function initLogFrame()
+    {
+        if ( top.LOG_SHOW_AT_LOAD )
+        {
+            showLogFrame(true);
+        }
+    }
+
+    // Show log frame
+    // logShow: true=show frame, false=Hide frame
+    // Sets local environment variable so log frame state will be remembered during reloads
+    function showLogFrame(logShow)
+    {
+      try
+      {
+        var mainFrame = document.getElementById("mainFrame");
+        var bannerHeight= mainFrame.rows.substring(0,mainFrame.rows.indexOf(','));
+        var footerHeight= mainFrame.rows.substring(mainFrame.rows.indexOf('*,')+2, mainFrame.rows.lastIndexOf(','));
+        var logHeight = 200;
+        
+        if(logVisible == logShow) return;
+        
+        logVisible = logShow;
+        
+        if ( logShow )
+        {
+          top.resizeBy(0,logHeight);
+          mainFrame.rows = bannerHeight+",*," + footerHeight + "," + logHeight;
+          // Set an environment variable to remember log frame state
+          top.secureSetEnv(new Function('return window'), "LaunchPadShowLog", "true");
+        }
+        else
+        {
+          mainFrame.rows = bannerHeight+",*," + footerHeight + ",0";
+          // Remember log frame state
+          top.secureSetEnv(new Function('return window'), "LaunchPadShowLog", "false");
+          top.resizeBy(0,-logHeight);
+        }
+      }
+      catch(e)
+      {
+        top.logException(e, arguments);
+      }        
+    }
+    top.showLogFrame = showLogFrame;
+    // Show log frame if the banner area is clicked with the control key down
+    function bodyClickEvent(e)
+    {
+        if ( e.ctrlKey && !e.altKey )
+        {
+            // Toggle log frame visibility
+            showLogFrame(!logVisible);
+			if(e.shiftKey && top.console && top.console.toggle)
+			{
+				top.console.toggle();
+			}
+            return(false);
+        }
+        return(true);
+    }
+
+    // Show log frame if the banner is in focus and the control-L key is pressed
+    function bodyKeyDownEvent(e)
+    {
+        if ( e.ctrlKey && !e.altKey && (String.fromCharCode(e.keyCode).toLowerCase() == 'l') )
+        {
+            // Toggle log frame visibility
+            showLogFrame(!logVisible);
+			if(e.shiftKey && top.console && top.console.toggle)
+			{
+				top.console.toggle();
+			}
+            return(false);
+        }
+        return(true);
+    }
+    </script>
+
+
+    <SCRIPT src="../../jscp.js">
+    <%@ include file="global.head" %>
+
+    <FRAMESET ROWS="<%= property('bannerHeight','48') %>,*,<%= property('footerHeight','48') %>,0" COLS="100%" frameborder="1" border="0" framespacing="0" name="mainFrame" id="mainFrame" <%= property('mainFramesetProperties','') %>>
+
+    <FRAME onload="top.showPanel(property('bannerHeight','48') != 0);" SRC="<%= findURL(null,'banner.html') %>" scrolling="no" noresize marginwidth="0" marginheight="0" frameborder="0" application="yes" name="banner" id="banner" <%= property('bannerFrameProperties','') %>>
+	<!-- ACGC_Bidi Start : if the locale is bidi , switch the places of the preload.html and navigation.html and adjust the column as well--> 
+	<FRAMESET ROWS="100%" COLS="<%= bidiString('*,' + property('navigationWidth', 250), property('navigationWidth', 250) + ',*') %>" frameborder="0" border="0" framespacing="0" name="subFrame" id="subFrame" <%= property('subFramesetProperties','') %>>
+	<% if(top.isBidiLocale()) { %>
+	    <FRAME SRC="<%= findURL(null,'preload.html') %>"    scrolling="no" marginwidth="0" marginheight="0" frameborder="0" application="yes" name="preload" id="preload" <%= property('preloadFrameProperties','') %>>
+	    <FRAME onload="top.showPanel(property('navigationWidth','250') != 0);" SRC="<%= findURL(null,'navigation.html') %>" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" application="yes" name="navigation" id="navigation" <%= property('navigationFrameProperties','') %>>
+	<% } else { %>
+	    <FRAME onload="top.showPanel(property('navigationWidth','250') != 0);" SRC="<%= findURL(null,'navigation.html') %>" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" application="yes" name="navigation" id="navigation" <%= property('navigationFrameProperties','') %>>
+	    <FRAME SRC="<%= findURL(null,'preload.html') %>"    scrolling="no" marginwidth="0" marginheight="0" frameborder="0" application="yes"  name="preload" id="preload" <%= property('preloadFrameProperties','') %>>	
+	<% } %>
+	<!-- ACGC_Bidi End-->
+    </FRAMESET>
+    <FRAME onload="top.showPanel(property('footerHeight','48') != 0);" SRC="<%= findURL(null,'footer.html') %>" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" application="yes" name="footer" id="footer" <%= property('footerFrameProperties','') %>>
+    <FRAME onload="initLogFrame()" SRC="<%= findURL(null,'log.html') %>" scrolling="auto" marginwidth="0" marginheight="0" frameborder="1" application="yes" name="log" id="log" <%= property('logFrameProperties','') %>>
+    </FRAMESET>
+    
+    </script>
+
+</HEAD>
+</HTML>
+

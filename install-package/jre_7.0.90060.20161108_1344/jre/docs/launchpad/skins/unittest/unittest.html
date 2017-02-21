@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+<HTML lang="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+<SCRIPT language="JavaScript">
+
+if (typeof HTMLElement != "undefined" && typeof HTMLElement.prototype.insertAdjacentHTML == "undefined")
+    HTMLElement.prototype.insertAdjacentHTML = function (where,htmlStr)
+    {
+	var range = this.ownerDocument.createRange();
+	range.setStartBefore(this);
+	this.appendChild(range.createContextualFragment(htmlStr));
+    }
+
+
+function check(descr,boolval) {
+    document.body.insertAdjacentHTML('beforeEnd', '<br>' + descr + ': ' + (boolval ? "<font color='green'>ok</font>" : "<font color='red'>FAILED</font>"));
+}
+securityFcn = new Function('return window');
+
+</SCRIPT>
+</HEAD>
+<BODY border="0" resize="no">
+<DIV id="unittestDiv" style="display:none;"></div>
+<SCRIPT language="JavaScript">
+top.LOGFILTER='SE'
+testvalue=1;
+if (top.LOCALE != 'ko') {
+    testvalue=2;
+    top.changeLocale('ko');
+}
+else {
+    showMessageArgs = '';
+    showMessageArgCount = -1;
+    showMessageCount = 0;
+    showMessageID = '';
+    function myshowMessage(d,a) {
+	showMessageCount++;
+        showMessageArgs = '';
+        for (var i=0; i<a.length; i++) showMessageArgs += a[i]+' ';
+        showMessageArgCount = a.length;
+        showMessageID = a[0];
+    }
+    top.showMessage = myshowMessage;
+
+    check('changeLocale #1', testvalue==1);
+    check('trim #1', top.trim("  		trim test  		 ") == "trim test");
+    check('trim #2', top.trim("trim test") == "trim test");
+    check('isSecure #1', top.isSecure(securityFcn) == true);
+    check('isSecure #2',top.isSecure(new Function('return top')) == false);
+    check('formatmsg #1',top.formatmsg("unit %3 test %1%2 ", "IBM", "WebSphere", "launchpad") == "unit launchpad test IBMWebSphere ");
+    check('formatmsg #2',top.formatmsg("unit %3 test %1%2 ") == "unit %3 test %1%2 ");
+    check('secureClientFileExists #1',top.secureClientFileExists(securityFcn,top.getFullFileName(top.STARTINGDIR+top.RELATIVEDIR,top.SKINDIR),'unittest.html')!=null);
+    check('secureClientFileExists #2',top.secureClientFileExists(securityFcn,'',top.getFullFileName(top.STARTINGDIR+top.RELATIVEDIR,top.SKINDIR+'unittest.html'))!=null);
+    check('secureClientFileExists #3',top.secureClientFileExists(securityFcn,top.getFullFileName(top.STARTINGDIR+top.RELATIVEDIR,top.SKINDIR),'unittest.htm')==null);
+    
+    function isDisabled(element) {
+        if (typeof element.disabled != "undefined")
+            return element.disabled;
+        else 
+            return (element.style.color == "gray");
+    }
+    top.enableElement(document.getElementById('unittestDiv'),false);
+    check('enableElement #1',isDisabled(document.getElementById('unittestDiv')));
+    top.enableElement(document.getElementById('unittestDiv'),true);
+    check('enableElement #2',!isDisabled(document.getElementById('unittestDiv')));
+    c = new Array();
+    c['unix'] = ['IBM/launchpad',"%1","%2"];
+    c['windows'] = ['IBM/launchpad',"%1","%2"];
+    check('getCommand #1',top.getCommand(c,"IBM","WebSphere").toString() == "IBM/launchpad,IBM,WebSphere");
+    c[top.OSTYPE] = ['IBM-OS/launchpad',"%1","%2"];
+    check('getCommand #2',top.getCommand(c,"IBM","WebSphere").toString() == "IBM-OS/launchpad,IBM,WebSphere");
+    win = window.open('about:blank');
+    check('secureViewPage #1',win.location.href == 'about:blank');
+    top.secureViewPage(securityFcn,win,top.getFullFileName(top.STARTINGDIR+top.RELATIVEDIR,top.SKINDIR),'unittestpopup.html',document.getElementById('unittestDiv'));
+    
+    function checkpage(n) {
+        n--;
+        if (win.location.href == 'about:blank' && n > 0)
+	setTimeout('checkpage('+n.toString()+')',100);
+        else {
+            check('secureViewPage #2',win.location.href != 'about:blank');
+            win.close();
+        }
+    }
+    setTimeout('checkpage(5)',100);
+    check('secureFindFile #1',top.secureFindFile(securityFcn,top.STARTINGDIR,'utils.js','en')==top.secureClientFileExists(securityFcn,top.STARTINGDIR+top.RELATIVEDIR,'utils.js'));
+    check('secureFindFile #2',top.secureFindFile(securityFcn,top.STARTINGDIR,'unittest.html')==top.secureClientFileExists(securityFcn,top.getFullFileName(top.STARTINGDIR+top.RELATIVEDIR,top.SKINDIR),'unittest.html'));
+    check('secureFindFile #3',top.secureFindFile(securityFcn,top.STARTINGDIR,'fallback.properties','fb')==top.secureClientFileExists(securityFcn,top.getFullFileName(top.STARTINGDIR+top.RELATIVEDIR,top.SKINDIR),'fb/fallback.properties'));
+    check('getDiskMapping #1',top.getDiskMapping(null)==top.STARTINGDIR);
+    unittestprops = new Array();
+    top.getURLproperties(document,unittestprops);
+    check('getURLproperties #1',unittestprops.urltest == "yes");
+    check('getURLproperties #2',unittestprops.urltest2 == "no");
+    top.secureReadPropertiesFile(securityFcn, top.STARTINGDIR+top.RELATIVEDIR, 'fallback.properties', unittestprops, 'fb');
+    check('secureReadPropertiesFile #1',unittestprops.unittest1 == "IBM LaunchPad 1");
+    check('secureReadPropertiesFile #2',unittestprops.unittest2 == "IBM LaunchPad 2");
+    check('secureReadPropertiesFile #3',unittestprops.unittest3 == "IBM LaunchPad 3");
+    check('secureReadPropertiesFile #4',unittestprops.unittest4 == "IBM LaunchPad 4");
+    check('secureReadPropertiesFile #5',unittestprops.unittest5 == "IBM\nLaunchPad 5");
+    check('secureReadPropertiesFile #6',unittestprops.unittest6.toString() == "IBM,LaunchPad,6");
+    check('secureReadPropertiesFile #7',unittestprops.unittest7 == '["IBM","LaunchPad",7]');
+    check('secureReadPropertiesFile #8',unittestprops.unittest8 == "IBM,WebSphere,LaunchPad,8");
+    check('secureReadPropertiesFile #9',unittestprops.unittest8[1].length == 2);
+    check('secureReadPropertiesFile #10',unittestprops.unittest8.length == 3);
+    check('secureReadPropertiesFile #11',unittestprops.unittest[9] == "IBM LaunchPad 9");
+    check('secureReadPropertiesFile #12',unittestprops.unittest.ten == "IBM LaunchPad 10");
+    document.properties = unittestprops;
+    check('findProperty #1',top.findProperty('unittest1',self) == "IBM LaunchPad 1");
+    check('findProperty #2',top.findProperty('Unittest1',self,'UnitTest') == "UnitTest");
+    check('findProperty #3',top.findProperty('diskDirPrompt',self,'UnitTest') != "UnitTest");
+    check('findProperty #4',top.findProperty('unittest',self,'UnitTest')[9] == "IBM LaunchPad 9");
+    check('findProperty #5',top.findProperty('unittest',self,'UnitTest')['ten'] == "IBM LaunchPad 10");
+    check('secureFileExists #1',top.secureFileExists(securityFcn,top.getNativeFileName(top.getFullFileName(top.STARTINGDIR+top.RELATIVEDIR,top.SKINDIR+'unittest.html'))) == true);
+    check('secureFileExists #2',top.secureFileExists(securityFcn,top.getNativeFileName(top.getFullFileName(top.STARTINGDIR+top.RELATIVEDIR,top.SKINDIR+'unittest.htm'))) == false);
+    check('secureGetEnv #1',top.secureGetEnv(securityFcn,'LaunchPadSkinDirectory') == top.SKINDIR);
+    check('secureGetEnv #2',top.secureGetEnv(securityFcn,'LaunchPadSkinDirectory1') != top.SKINDIR);
+    if (top.secureSetEnv(securityFcn,'LaunchPadSkinDirectory1',top.SKINDIR))
+        check('secureSetEnv #1',top.secureGetEnv(securityFcn,'LaunchPadSkinDirectory1') == top.SKINDIR);
+    else
+        check('secureSetEnv #1',top.secureGetEnv(securityFcn,'LaunchPadSkinDirectory1') != top.SKINDIR);
+    
+    cmd = new Array();
+    cmd['unix']=top.getFullFileName(top.STARTINGDIR+top.RELATIVEDIR,top.SKINDIR+"unittest.sh");
+    cmd['windows']=top.getFullFileName(top.STARTINGDIR+top.RELATIVEDIR,top.SKINDIR+"unittest.bat");
+    rc = top.secureRunProgram(securityFcn,'',[cmd[top.OSTYPE],107],true,false,document.getElementById('unittestDiv'));
+    check('secureRunProgram #1',rc == 107);
+    check('secureRunProgram #2',!isDisabled(document.getElementById('unittestDiv')));
+    rc = top.secureRunProgram(securityFcn,'',[cmd[top.OSTYPE],106],true,true);
+    check('secureRunProgram #3',rc == 106);
+    rc = top.secureRunProgram(securityFcn,'',[cmd[top.OSTYPE],106],false,false);
+    check('secureRunProgram #4',rc == 0);
+    rc = top.secureRunProgram(securityFcn,'',[cmd[top.OSTYPE],106],false,true);
+    check('secureRunProgram #5',rc == 0);
+    var dirs = top.secureGetDirectories(securityFcn,top.getFullFileName(top.STARTINGDIR+top.RELATIVEDIR,top.SKINDIR)).toString();
+    check('secureGetDirectories #1',dirs == "en,fb" || dirs == "fb,en");
+    
+    listenerArgs = '';
+    listenerDate = '';
+    
+    function testListener(d,a) {
+        listenerDate = d;
+        listenerArgs = '';
+        for (var i=0; i<a.length; i++) listenerArgs += a[i]+' ';
+        return false;
+    }
+    addRC = top.logAddListener(testListener);
+    top.logMessage("LPV20011E", "message", "file", 1);
+    check('logAddListener #1',listenerArgs == 'LPV20011E message file 1 ');
+    
+    function testException(a,b) {
+        try {
+            j = unittest.launchpad;
+        }
+        catch(e) { top.logException(e,arguments); }
+    }
+    testException('IBM','LaunchPad');
+    check('logException #1',listenerArgs.indexOf('unittest') > 0);
+    top.logRemoveListener(addRC);
+    listenerArgs = '';
+    top.logMessage("LPV20011E", "message", "file", 1);
+    check('logRemoveListener #1',listenerArgs == '');
+    check('logMessage #1', 'LPV20011E' == showMessageID);
+    function testNav(n) {
+	if (n-- > 0) try {
+            top.navigateTo('second');
+	    } catch(e) { setTimeout('testNav('+n+')',200); return; }
+        check('navigateTo #1',top.navigationDocument.getElementById('second').className == 'active');
+        check('navigateTo #2',top.navigationDocument.getElementById('first').className == 'inactive');
+        check('showPreloadedPage #1',top.preloadDocument.getElementById('preload_content2').style.display == 'block');
+        check('showPreloadedPage #2',top.preloadDocument.getElementById('preload_content1').style.display == 'none');
+    }
+    testNav(9);
+    check('logMessage #2', showMessageCount == 1);
+    check('directory exists #1', top.directoryExists(null, top.RELATIVEDIR + 'content') == true);
+    check('findFileInPaths #1', top.findFileInPaths(null, [top.RELATIVEDIR], 'Mozilla.sh') != null);
+}
+</SCRIPT>
+</BODY>
+</HTML>

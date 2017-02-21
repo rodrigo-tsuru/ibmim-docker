@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+
+    <script src="../../jscp.js">
+    <%@ include file="global.head" %>
+    <% loadCSSfiles(DEFAULTCSS); %>
+</head>
+
+<body onclick="parent.bodyClickEvent(event)" onkeydown="parent.bodyKeyDownEvent(event)">
+
+<div class="mainDiv">
+	<table id="bannerImageTable" title="<%= property('bannerLogoAltText', '') %>" cellpadding="0" cellspacing="0">
+		<tr>
+			<td id="title" title="<%= property('bannerTitle', '') %>"><%= property('bannerTitle', '') %></td>
+		</tr>
+	</table>
+	<table class="toolBar">
+		<tr>
+			<!-- ACGC_Bidi Start : if locale is Bidi make the drop down  at the most left side of the frame  -->
+			<td style="text-align: <%= bidiString('left','right') %>;">
+			<!-- ACGC_Bidi End-->
+			<form style="display:inline" action="javascript:void 0" name="langSelect" id="langSelect">
+			<label for="langSelect" class="label"><%= property ( 'languageLabel' )%></label> 
+			<select name="gotolang" onchange="top.changeLocale(document.langSelect.gotolang.value)">
+			<% 
+			var localeList = top.getValidLocaleNames();
+			var aLocale = property('fallBackLocale');
+
+			for (var i in localeList) {
+			  if (top.LOCALE == localeList[i][0]) {
+			      aLocale = top.LOCALE;
+			  }
+			}
+
+			for (var i in localeList) {
+			    var selected = "";
+			    if (aLocale == localeList[i][0]) {
+			        selected = "SELECTED";
+			    } 
+			    else {
+			        selected = "";
+			    }
+			    %>     
+			    <option <%=selected%> value=<%= localeList[i][0] %>><%= localeList[i][1] %></option>
+			    <%
+			}
+			%>
+			</select>
+			</form>
+			</td>
+		</tr>
+	</table>
+</div>
+
+</script>
+
+</body>
+</html>

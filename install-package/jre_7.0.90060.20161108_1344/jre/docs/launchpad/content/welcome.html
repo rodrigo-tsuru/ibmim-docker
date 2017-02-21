@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2006
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+</head>
+
+<script src="../jscp.js">
+
+<%@ include file="global.head" %>
+
+<% loadCSSfiles(DEFAULTCSS, "content.css"); %>
+
+<body>
+
+<h1><%= property('welcomePage') %></h1>
+
+<h2><%= property('descriptionSentence') %></h2>
+
+<div>
+<p><%= property('overview') %></p>
+<ul> 
+  <li><%= property('websites') %></li>
+  <ul>
+    <li>
+      <a href="javascript:void 0" onclick="viewPage(NO_DISKID, 'http://www.ibm.com/developerworks/java')">
+        <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+        <%= property('devWorksSite') %>
+      </a><br />
+      <%= property('devWorksSiteDesc') %>
+    </li>
+    <li>
+      <a href="javascript:void 0" onclick="viewPage(NO_DISKID, 'http://publib.boulder.ibm.com/infocenter/java7sdk/v7r0/index.jsp')">
+        <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+        <%= property('infocenterSite') %>
+      </a><br />
+      <%= property('infocenterSiteDesc') %>
+    </li>
+    <li>
+      <a href="javascript:void 0" onclick="viewPage(NO_DISKID, 'http://www.ibm.com/software/support/isa/')">
+        <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+        <%= property('isaSite') %>
+      </a><br />
+      <%= property('isaSiteDesc') %>
+    </li>
+    <li>
+      <a href="javascript:void 0" onclick="viewPage(NO_DISKID, 'http://www.ibm.com/software/info/education/assistant/')">
+        <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+        <%= property('ieaSite') %>
+      </a><br />
+      <%= property('ieaSiteDesc') %>
+    </li>
+  </ul>
+</ul>
+</div>
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<filesystems>
+	<fsprovider-plugin id="diskfs"
+        impl="com.ibm.ws.pak.internal.utils.filesystems.DiskFileSystem"/>
+	<fsprovider-plugin id="zipfs"
+        impl="com.ibm.ws.pak.internal.utils.filesystems.ZIPFileSystem"/>
+	<!--<fsprovider-plugin id="i5osfs"
+        impl="com.ibm.ws.pak.internal.utils.filesystems.I5OSRemoteFileSystem"/>-->
+</filesystems>

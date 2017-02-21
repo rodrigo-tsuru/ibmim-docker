@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agent-input clean='true' temporary='true'>
+<server>
+<repository location='.'/>
+</server>
+<install>
+<offering features='agent_core,agent_jre' id='com.ibm.cic.agent' version='1.8.6000.20161118_1611'/>
+</install>
+</agent-input>

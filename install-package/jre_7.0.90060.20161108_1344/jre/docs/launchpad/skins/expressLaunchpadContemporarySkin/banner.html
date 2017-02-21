@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+<HTML LANG="en">
+<HEAD>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+
+    <script src="../../jscp.js">
+    <%@ include file="global.head" %>
+    <% loadCSSfiles(DEFAULTCSS); %>
+</head>
+<body onclick="parent.bodyClickEvent(event)" onkeydown="parent.bodyKeyDownEvent(event)">
+
+<div class="absolute fill">
+	<div class="outerVerticalCenteringWrapper fill">
+		<div class="innerVerticalCenteringWrapper fillWidth">
+			<div id="title" class="verticallyCenteredContent">
+				<%= property('productName', '') %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="absolute fill">
+	<div class="outerVerticalCenteringWrapper fill">
+		<div class="innerVerticalCenteringWrapper fillWidth">
+			<div id="languageSelectorContainer" class="verticallyCenteredContent">
+				<form style="display:inline" action="javascript:void 0" name="languageSelector" id="languageSelector">
+					
+					<label for="languageSelector" class="languageSelectorLabel"><%= property('languageLabel' )%></label> 
+					
+					<select id="languageSelectorList" name="languageSelectorList" onchange="top.changeLocale(document.languageSelector.languageSelectorList.value)">
+					<% 
+					var localeList = top.getValidLocaleNames();
+					var aLocale = property('fallBackLocale');
+
+					for (var i in localeList) {
+					  if (top.LOCALE == localeList[i][0]) {
+						  aLocale = top.LOCALE;
+					  }
+					}
+
+					for (var i in localeList) {
+						var selected = "";
+						if (aLocale == localeList[i][0]) {
+							selected = "SELECTED";
+						} 
+						else {
+							selected = "";
+						}
+						%>     
+						<option <%=selected%> value=<%= localeList[i][0] %>><%= localeList[i][1] %></option>
+						<%
+					}
+					%>
+					</select>
+				</form>
+				<% 
+					var languageSelectorWidth = document.getElementById('languageSelector').offsetWidth;
+					document.getElementById('title').style['margin' + bidiString('Left','Right')] = (languageSelectorWidth + property('titleMarginPad', 15)) + 'px';
+				%>
+			</div>
+		</div>
+	</div>
+</div>
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+<SCRIPT src="../../jscp.js">
+<%@ include file="global.head" %>
+<% loadCSSfiles(DEFAULTCSS); %>
+
+</HEAD>
+
+<FRAMESET ROWS="0,0,100%" COLS="100%" RESIZE="yes" frameborder=no border=0 >
+    <FRAME SRC="<%= findURL(null,'navigation.html') %>?startMenu=menu" NAME=navigation ID=navigation scrolling=no NORESIZE marginwidth="0" marginheight="0" frameborder=no APPLICATION=yes>
+    <FRAME SRC="<%= findURL(null,'preload.html') %>" scrolling=no marginwidth="0" NAME=preload ID=preload scrolling=no NORESIZE marginheight="0" frameborder=no framespacing=0 APPLICATION=yes>
+    <FRAME SRC="<%= findURL(null,'unittest.html') %>?urltest=yes,urltest2=no" NAME=main ID=main SCROLLING=auto marginwidth="0" marginheight="0" frameborder=no APPLICATION=yes>
+</FRAMESET>
+
+</SCRIPT>
+
+</HTML>

@@ -1,0 +1,113 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#backgroundDiv{
+  background-color: <%= property('footerColor', property('backgroundColor', '#ffffff')) %>;
+  background-image: url(<%= findURL(null, property('footerImage', 'images/transparent.gif')) %>);
+  background-position: bottom <%= bidiString('right','left') %>;
+}
+
+.navigationMargin { 
+	margin-<%= bidiString('right','left') %>: <%= String(parseInt(property('navigationWidth', '250'))) %>px;
+}
+.buttonsMargin {
+	margin-<%= bidiString('left','right') %>: 10px; 
+}
+
+#progressWrapper {
+	position: relative;
+}
+
+
+#frontCap{
+	padding: 0 0 0 3px;
+	background-image: url('images/progress_endcap_left.gif');
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+#endCap{
+	padding: 0 3px 0 0;
+	background-image: url('images/progress_endcap_right.gif');
+	background-repeat: no-repeat;
+	background-position: top right;
+}
+#progressBackground {
+	background-image: url('images/progress_empty-section.gif');
+	background-repeat: repeat-x;
+}
+#progress{
+	position:relative;
+  width: 0%;
+  height: 12px;
+	font-size: 9px; /* HACK!!! Makes IE6 obey the height property */
+	background-image: url('images/progress_loading-section.gif');
+	background-position: top <%= bidiString('right','left') %>;
+	background-repeat: repeat-x;
+}
+.progressText {
+	white-space: nowrap;
+	font-family: Arial, sans-serif;
+	font-size: 11px;
+	padding: 1px 0;
+	width: 0px;
+}
+
+#helpButton {
+  display: none;
+}
+#cancelButton {
+  margin: 0 5px;
+}
+
+#launchpadLogoDiv {
+	padding: 0 15px;
+}
+#launchpadLogo {
+	display: block;
+}
+
+#buttonForm {
+    margin:0;
+    padding:0;
+    padding-<%= bidiString('right','left') %>: 5px;
+    padding-<%= bidiString('left','right') %>: 10px;
+	float: <%= bidiString('left','right') %>;
+}
+
+.outerVerticalCenteringWrapper {
+	display: table;
+	height: 100%;
+	position: relative;
+}
+.innerVerticalCenteringWrapper {
+	display: table-cell;
+	vertical-align: middle;
+	#vertical-align: baseline;
+	#top: 50%;
+	#position: absolute;
+}
+.verticallyCenteredContent { 
+	#position: relative;
+	#top: -50%;
+}
+
+.highZIndex { z-index: 10; }
+.absolute { position: absolute; }
+.fill { width: 100%; height: 100%; }
+.fillWidth { width: 100%; }
+.fillHeight { height: 100%; }
+.red { background-color: red; }
+.yellow { background-color: yellow; }
+.blue { background-color: blue; }
+.purple { background-color: purple; }
+.green { background-color: green; }
+.black { background-color: black; }
+.white { background-color: white; }
+.gray { background-color: gray; }
+.transparent { background-color: transparent; }
+.hide { display: none; }

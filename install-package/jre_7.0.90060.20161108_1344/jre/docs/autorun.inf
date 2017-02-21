@@ -1,0 +1,20 @@
+;TODO Add custom autorun semaphore for the launchpad project.  Remove this line when this task is complete
+;
+; Setting and checking semaphores prevents the same launchpad from running multiple instances on the same computer. 
+;
+; Customize the -c and -s switches in the following command.  Create semaphores with a unique name for a product.
+;
+; SYNTAX:
+;
+; open=launchpad.exe [-c] semaphoreName [-s] semaphoreName launchpad\lauchpad.bat
+;
+;  -c  Checks for the specified semaphore and if it exists, exits without starting the program.  
+;      You should add a -s parameter  with the same semaphore name to this file and the launchpad.ini file
+;      to prevent autorun from starting a second launchpad if this CD is swapped.
+;      You can specify multiple -c options.  
+;
+;  -s  Sets the specified semaphore so that other programs can check for it.  
+;      You can specify multiple -s options.
+ 
+[autorun]
+open=launchpad.exe -c demoDisableAutorun launchpad\launchpad.bat

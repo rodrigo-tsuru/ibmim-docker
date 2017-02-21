@@ -1,0 +1,89 @@
+body{
+  background-color: <%= property('backgroundColor', '#6998c8') %>;
+  z-index: 0;
+  text-align: center;
+  vertical-align: bottom;
+}
+
+#buttonBar{
+  display: none;
+}
+
+#helpButton {
+  display: none;
+}
+
+#navButtons {	
+  position: absolute; 
+  top:18px;
+  <%= bidiString('left','right') %> :15px;
+}
+
+#cancelHelpButtons {
+  position: absolute; 
+  top:18px;
+  <%= bidiString('right','left') %> :15px;
+}
+
+#cancelHelpForm {
+  text-align:center;
+}
+
+#progress_outer_border{
+  height: 20px;
+  border: 1px solid black;
+  width:100%;
+}
+
+.progress_indeterminate{
+  position: relative;
+  z-index: 1;
+  width:100%;
+  height: 100%;
+  background-image: url('images/progress_blue.gif');
+}
+
+.progress_determinate{
+  position: relative;
+  z-index: 1;
+  width:0%;
+  height: 100%;
+  background-color: gray;
+}
+
+#progress_wrapper{
+  position: absolute;
+  <%= bidiString('left','right') %> :15px;
+  top: 15px;
+  text-align: left;
+  width: 510px;
+  z-index: 1000;
+}
+
+#progress_description{
+  color: white;
+  font-size: 12px;
+  z-index: 1001;
+  position: relative;
+  width: 510px;
+  overflow-x: hidden;
+}
+
+#percent_complete_string{
+  position: absolute;
+  left: 247px;
+  top: 18px;
+  color: white;
+  z-index: 200;
+  font-size: 12px;
+}
+
+#navButtons { position:absolute; top:50%; height:2em; margin-top:-.85em }
+#cancelHelpButtons { position:absolute; top:50%; height:2em; margin-top:-.85em }
+#progress_wrapper { position:absolute; top:50%; height:2em; margin-top:-1.8em;}
+
+pre{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+}

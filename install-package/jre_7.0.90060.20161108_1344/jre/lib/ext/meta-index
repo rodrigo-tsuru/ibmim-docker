@@ -1,0 +1,47 @@
+% VERSION 2
+% WARNING: this file is auto-generated; do not edit
+% UNSUPPORTED: this file and its format may change and/or
+%   may be removed in a future release
+! CmpCrmf.jar
+com/ibm/
+# dnsns.jar
+META-INF/services/sun.net.spi.nameservice.NameServiceDescriptor
+sun/net
+# gskikm.jar
+com/ibm/
+# ibmcmsprovider.jar
+com/ibm/
+# ibmjcefips.jar
+META-INF/FIPS.DAC
+META-INF/IBMPROVI.SF
+META-INF/IBMPROVI.DSA
+com/ibm/
+# ibmjceprovider.jar
+META-INF/IBMPROVI.SF
+META-INF/IBMPROVI.DSA
+com/ibm/
+# ibmkeycert.jar
+com/ibm/
+# ibmpkcs11impl.jar
+META-INF/IBMPROVI.SF
+META-INF/IBMPROVI.DSA
+com/ibm/
+! ibmsaslprovider.jar
+com/ibm/
+javax/security
+! ibmxmlcrypto.jar
+com/ibm/
+! ibmxmlencprovider.jar
+com/ibm/
+! jverbs.jar
+com/ibm/
+# localedata.jar
+sun/text
+sun/util
+# sunjce_provider.jar
+com/sun/crypto/
+META-INF/ORACLE_J.RSA
+META-INF/ORACLE_J.SF
+# zipfs.jar
+META-INF/services/java.nio.file.spi.FileSystemProvider
+com/sun/nio/

@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Require-Bundle: org.eclipse.core.runtime
+Export-Package: com.ibm.ws.pak.internal,com.ibm.ws.pak.internal.instal
+ l,com.ibm.ws.pak.internal.install.failurerecovery,com.ibm.ws.pak.inte
+ rnal.install.metadata,com.ibm.ws.pak.internal.install.registry,com.ib
+ m.ws.pak.internal.utils,com.ibm.ws.pak.internal.utils.componentaction
+ s,com.ibm.ws.pak.internal.utils.events,com.ibm.ws.pak.internal.utils.
+ fileactions,com.ibm.ws.pak.internal.utils.filesystems,com.ibm.ws.pak.
+ internal.utils.installtoolkitbridge,com.ibm.ws.pak.internal.utils.log
+ ging,com.ibm.ws.pak.internal.utils.macroresolvers,com.ibm.ws.pak.inte
+ rnal.utils.product
+Bundle-ClassPath: lib/wasproduct.jar,lib/jt400.jar,lib/nativefile.jar,
+ lib/com.ibm.ws.prereq.nativefile.jar,com.ibm.ws.pak.internal.jar
+Bundle-Version: 1.0.13.v20160506_0238
+Bundle-Name: com.ibm.ws.pak.internal
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.ibm.ws.pak.internal;singleton:=true
+From-Capilano-Version: 1.8.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+
+

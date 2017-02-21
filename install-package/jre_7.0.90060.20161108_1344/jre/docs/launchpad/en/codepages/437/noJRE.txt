@@ -1,0 +1,11 @@
+An error occurred while starting the launchpad.  This error typically occurs when the launchpad
+is unable to find a supported Java Runtime Environment.
+
+NOTE: This file is a place holder for product specific instructions
+      about how to recover from this error.
+
+You should describe the location of installation programs on the product CD
+so the user can run them directly without starting launchpad if necessary.
+
+Procedure for correcting the error that is preventing the launchpad from displaying
+===================================================================================

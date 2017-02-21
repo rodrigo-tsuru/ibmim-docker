@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+<HTML lang="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<script language="JavaScript">
+try
+{    
+	document.search = document.location.search;
+	if (typeof document.search != "string" || document.search.length <= 1) {
+		if (typeof LaunchPad != "undefined" && typeof LaunchPad.commandLine == "string" &&
+			LaunchPad.commandLine.indexOf('?') > 0 &&
+			LaunchPad.commandLine.indexOf('?') < (LaunchPad.commandLine.length-2)) {
+			document.search = LaunchPad.commandLine.substring(LaunchPad.commandLine.indexOf('?'));
+			if (document.search.substring(document.search.length-1) == '"' || document.search.substring(document.search.length-1) == "'")
+				document.search = document.search.substring(0,document.search.length-1);
+		} else
+			document.search = '?en';
+	}
+	if (document.search.indexOf(',') >= 0) {
+		top.INITIALLOCALE = document.search.substring(1,document.search.indexOf(','));
+		document.search = '?' + document.search.substring(document.search.indexOf(',')+1);
+	} else {
+		top.INITIALLOCALE = document.search.substring(1);
+		document.search = '';
+	}
+	top.NOBROWSER = window.location.href.substring(0,window.location.href.lastIndexOf('/'))+'/'+top.INITIALLOCALE+'/noBrowser.html';
+	var useragent = navigator.userAgent.toLowerCase();
+	top.BROWSERVERSION = parseFloat(useragent.substring(useragent.indexOf("applewebkit/")+12));
+} catch(e) { top.NOBROWSER = 'en/noBrowser.html'; }
+
+</script>
+
+<script src="launchpad.js">
+</script>
+
+<script src="globals.js">
+</script>
+
+<script src="log.js">
+</script>
+
+<script src="utils.js">
+</script>
+
+<script src="OS.js">
+</script>
+
+<script src="WebKit.js">
+</script>
+
+<script src="properties.js">
+</script>
+
+<script src="browsePrompt.js">
+</script>
+
+<script src="diskLabels.js">
+</script>
+
+<script src="wizard.js">
+</script>
+
+<script src="update.js">
+</script>
+
+<script src="license.js">
+</script>
+
+<script src="hotkeys.js">
+</script>
+
+<script language="JavaScript">
+try
+{   
+	//If this happens, it means that diskLabels.js found a different compatible directory for diskLabel.id
+	//than the one we started in
+	if (top.getNativeFileName(top.diskMappings[top.diskLabel.id]) !=  top.getNativeFileName(top.STARTINGDIR)) {
+		//If we found a compatible disk, then reset the STARTINGDIR.  Otherwise, just leave it 
+		//and let the no browser code catch the problem.
+		if (top.foundCompatibleStartDisk) {
+		  top.STARTINGDIR = top.diskMappings[top.diskLabel.id];
+		}
+		
+		top.initializeProperties();
+		top.initializeDiskLabelService();
+	}
+
+	var localeMappings = top.findProperty('engineLocales', self, null);
+	var previousLocale = top.LOCALE;
+
+	top.LOCALE = localeMappings[top.trim(secureGetEnv(new Function('return window'), "LaunchPadLocale").toLowerCase())];
+
+	if ( top.LOCALE == null ) // if no mapping exists for the 5 character lang code, try the two digit code
+	{
+		top.LOCALE = localeMappings[secureGetEnv(new Function('return window'), "LaunchPadLocale").substring(0,2).toLowerCase()];
+	}
+	
+	function contains(array, object) {
+		var i = array.length;
+		while (i--) {
+			if (array[i] === object) {
+			  return true;
+			}
+		}
+		return false;
+	}
+	if (top.LOCALE == null || !contains(top.findProperty('validLocales', self, []), top.LOCALE)) // if everything fails, default to English
+	{
+		top.LOCALE = top.findProperty('fallBackLocale', self, 'en');
+	}
+
+	//The initial locale is set in IExplore.js/Mozilla.js.  However, at that point, the properties service
+	//has not been loaded, so we can't determine if a region specific locale should be used.  So we use
+	//as base locale.  Using a base locale means that any properties in global.properties will not be loaded
+	//for the regional dialects.  So, after the locale is absolutely determined, we'll reload the global.prop files.
+	if (top.LOCALE != previousLocale) {
+		top.initializeProperties();
+	}
+}
+catch(e)
+{
+	var errorMessage = top.formatmsg(document.properties['errorLoadingLocaleProperties'], e.message)
+	if(typeof errorMessage == "undefined")
+	{
+		alert("Failure reading properties files. If you are running this program from a UNC path, map the path to a drive and start this program again from the mapped drive.");
+	}
+	alert(top.formatmsg(document.properties['errorLoadingLocaleProperties'], e.message));
+}
+</script>
+
+<SCRIPT src="jscp.js">
+<% initializeMenu(); %>
+<%@ include file= "secureUserExtensions.js" %>
+<%@ include file= "userExtensions.js" %>
+<%@ include file="global.head" %>
+<% loadCSSfiles(DEFAULTCSS); %>
+<%
+
+try
+{   
+	if (typeof top.launchpadStartup != "undefined") 
+	{
+    top.launchpadStartup();
+	}        
+}
+catch(e)
+{      
+	alert(top.formatmsg(document.properties['launchpadStartupCodeError'], e.message));        
+}
+top.handleDiskLabelJavascriptSubstitution();
+
+top.resize(property('launchpadWidth',800),property('launchpadHeight',600));
+
+if (top.foundCompatibleStartDisk)
+{
+	var launchpadLocaleSet = top.secureGetEnv(new Function('return window'), "LaunchPadLocaleSet");	
+	var doLanguageSelect = property('languageSelectionType','embedded') == 'dialog' && launchpadLocaleSet != 'true';
+%>
+
+</head>
+<body>
+<% top.checkHighContrast(); %>
+<img id="launchpadLogo" src="<%= findURL(null,property('logoImage')) %>" alt="<%= property('logoAltText', '') %>">
+
+<div id="notificationsWrapper">
+	<div id="notifications" class="notifications">
+	</div>
+</div>
+
+<iframe name="root" id="root" scrolling="no" src="<%= findURL(null,top.STARTPAGE) %>" frameborder="0" border="0" width="100%" height="100%" application="yes">
+</iframe>
+
+<div id="dialogTemplate" class="dialogWrapper" style="display: none;">
+	<div id="dialogTemplateMediumZIndex" class="absolute fill semitransparent black"></div>
+	<div id="dialogTemplateHighZIndex" class="absolute outerVerticalCenteringWrapper fill">
+		<div class="innerVerticalCenteringWrapper fillWidth">
+			<div class="verticallyCenteredContent centerAlign fillWidth">
+				<span id="dialogTemplateSpan" class="horizontallyCenteredContent inlineBlock dialogSpan">
+					<div id="dialogTemplateInnerContainer"  class="leftAlign"></div>
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<iframe name="printer" id="printer" scrolling="no" src="<%= findURL(null,'print.html') %>" frameborder="0" border="0" width="0%" height="0%" application="yes">
+</iframe>
+
+</body>
+<%
+	function languageSelectionAction(lang)
+	{
+		top.secureSetEnv(new Function('return window'), "LaunchPadDialogLocaleSelected", 'true');
+		if(top.LOCALE != lang && lang != "0")
+		{
+      		top.secureSetEnv(new Function('return window'), "LaunchPadLocaleSet", 'true');
+			top.changeLocale(lang);
+		}
+		if(top.showLogFrame)
+			top.showLogFrame(top.LOG_SHOW_AT_LOAD_ORIG);
+	}
+	
+	function createLanguageOptionsList() {
+		var text = '';
+		var localeList = top.getValidLocaleNames();
+		top.LOG_SHOW_AT_LOAD_ORIG = top.LOG_SHOW_AT_LOAD;
+		top.LOG_SHOW_AT_LOAD = doLanguageSelect ? false : top.LOG_SHOW_AT_LOAD;
+
+		var selectedLocale = property('fallBackLocale');
+
+		for (var i in localeList) {
+			if (top.LOCALE == localeList[i][0]) {
+				selectedLocale = top.LOCALE;
+			}
+		}
+
+		for (var i in localeList) {
+			var selected = "";
+			if (selectedLocale == localeList[i][0]) {
+				selected = "SELECTED";
+			} 
+			else {
+				selected = "";
+			}
+			text += '<option ' + selected + ' value="' + localeList[i][0] + '">' + localeList[i][1] + '</option>\n';
+		}
+		return text;
+	}
+	
+	if(doLanguageSelect)
+	{
+		var languageSelectionText = 
+		'<form action="javascript:void 0" name="languageSelectionForm" id="languageSelectionForm">\
+			<select name="languageList" id="languageList">' + 
+				createLanguageOptionsList() +
+			'</select>\
+		</form>';
+		
+		var languageSelectionDialogId = 'languageSelectionDialogId';
+		var languageSelectionContent = languageSelectionText;
+		top.showDialog(languageSelectionContent, {
+			id: languageSelectionDialogId,
+			title: property('languageLabelTitle'),
+			buttons: [
+				{
+					id: "languageButton",
+					name: "languageButton",
+					value: property('promptOK'),
+					onclick: function(){ languageSelectionAction(document.languageSelectionForm.languageList.value); top.showDialog(languageSelectionDialogId, false); }
+				}
+			],
+			width: "350px"
+		});
+		document.getElementById('languageButton').focus();
+	}
+	top.secureSetEnv(new Function('return window'), "LaunchPadLocaleSet", 'false');	
+}
+else 
+{
+	//This is an attempt to re-orient the launchpad to the original starting directory to pick up the incorrectDisk.html file.
+	//We do this because there's no gaurantee that we'll find one in another location.  If we get here, we can be assured that
+	//top.STARTINGDIR was reset to the original starting directory.  So we should be able to find an incorrectDisk.html file.
+	top.diskMappings[diskLabel.id] = top.STARTINGDIR;
+%>
+
+<FRAMESET ROWS="100%" COLS="100%" frameborder="0" border="0" framespacing="0" >
+	<FRAME SRC="<%= findURL(null,'incorrectDisk.html') %>" name="root" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" application="yes">
+</FRAMESET>
+</HEAD>
+
+<%
+}
+%>
+<% top.include(document, property("topIncludeScripts",[]), true); %>
+<% top.include(document, property("topIncludeStyleSheets",[]), true, "style"); %>
+</SCRIPT>
+</HTML>

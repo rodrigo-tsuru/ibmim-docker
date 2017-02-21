@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2006
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+</head>
+
+<script src="../jscp.js">
+<%
+    	var fallBackLocale=property('fallBackLocale');    	
+%>
+
+<%@ include file="global.head" %>
+
+<% loadCSSfiles(DEFAULTCSS, "content.css"); %>
+
+<body>
+
+<h1><%= property('userguides') %></h1>
+
+<div>
+<p><%= property('overview') %></p>
+  <ul>  
+    <% var sdk_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale], top.parse( property( 'sdk_file' ) ) ) %>
+    <% if (sdk_path) { %>
+    <li>
+      <a href="javascript:void 0" onclick="viewPage(NO_DISKID, sdk_path)">
+        <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+        <%= property('sdk_title') %>
+      </a><br />
+      <%= property('sdk_desc') %>
+    </li>
+    <% } %>
+    
+    <% var sdkjre_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale], top.parse( property( 'sdkjre_file' ) ) ) %>
+    <% if (sdkjre_path) { %>
+    <li>
+      <a href="javascript:void 0" onclick="viewPage(NO_DISKID, sdkjre_path)">
+        <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+        <%= property('sdkjre_title') %>
+      </a><br />
+      <%= property('sdkjre_desc') %>
+    </li>
+    <% } %>
+
+    <% var security_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale], top.parse( property( 'security_file' ) ) ) %>
+    <% if (security_path) { %>
+    <li>
+      <a href="javascript:void 0" onclick="viewPage(NO_DISKID, security_path)">
+        <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+        <%= property('security_title') %>
+      </a><br />
+      <%= property('security_desc') %>
+    </li>
+    <% } %>
+    
+    <% var rmiiiop_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale], top.parse( property( 'rmiiiop_file' ) ) ) %>
+    <% if (rmiiiop_path) { %>
+    <li>
+      <a href="javascript:void 0" onclick="viewPage(NO_DISKID, rmiiiop_path)">
+        <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+        <%= property('rmiiiop_title') %>
+      </a><br />
+      <%= property('rmiiiop_desc') %>
+    </li>
+    <% } %>
+    
+    <% var orb_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale], top.parse( property( 'orb_file' ) ) ) %>
+    <% if (orb_path) { %>
+    <li>
+      <a href="javascript:void 0" onclick="viewPage(NO_DISKID, orb_path)">
+        <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+        <%= property('orb_title') %>
+      </a><br />
+      <%= property('orb_desc') %>
+    </li>
+    <% } %>
+    
+    <% var japanese_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale], top.parse( property( 'japanese_file' ) ) ) %>
+    <% if (japanese_path && (top.LOCALE == 'en' || top.LOCALE == 'ja') ) { %>
+    <li>
+      <a href="javascript:void 0" onclick="viewPage(NO_DISKID, japanese_path)">
+        <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+        <%= property('japanese_title') %>
+      </a><br />
+      <%= property('japanese_desc') %>
+    </li>
+    <% } %>
+    
+  </ul>
+</div>
+
+</script>
+</body>
+
+</html>

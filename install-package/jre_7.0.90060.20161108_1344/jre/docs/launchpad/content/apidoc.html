@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2006
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+</head>
+
+<script src="../jscp.js">
+<%
+    	var fallBackLocale=property('fallBackLocale');    	
+%>
+
+<%@ include file="global.head" %>
+
+<% loadCSSfiles(DEFAULTCSS, "content.css"); %>
+
+<body>
+
+<h1><%= property('apidoc') %></h1>
+
+<div>
+<p><%= property('overview') %></p>
+
+  <% if ( top.directoryExists( null, top.CONTENTDIR + "apidoc" ) ) { %>
+
+    <ul>
+    
+      <% var dlpar_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_dlpar' ) ) ) %>
+      <% if (dlpar_path) { %>
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, dlpar_path )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('dlpar_title') %>
+        </a><br />
+        <%= property('dlpar_desc') %>
+      </li>
+      <% } %>
+
+      <% var bidi_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_bidi' ) ) ) %>
+      <% if (bidi_path) { %>
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_bidi' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('bidi_title') %>
+        </a><br />
+        <%= property('bidi_desc') %>
+      </li>
+      <% } %>
+    
+      <% var dtfj_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_dtfj' ) ) ) %>
+      <% if (dtfj_path) { %>
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_dtfj' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('dtfj_title') %>
+        </a><br />
+        <%= property('dtfj_desc') %>
+      </li>
+      <% } %>
+
+      <% var interruptible_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_interruptible' ) ) ) %>
+      <% if (interruptible_path) { %>
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_interruptible' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('interruptible_title') %>
+        </a><br />
+        <%= property('interruptible_desc') %>
+      </li>
+      <% } %>
+
+      <% var jzos_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jzos' ) ) ) %>
+      <% if (jzos_path) { %>
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, jzos_path )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('jzos_title') %>
+        </a><br />
+        <%= property('jzos_desc') %>
+      </li>
+      <% } %>  
+
+      <% var nio_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_nio' ) ) ) %>
+      <% if (nio_path) { %>
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_nio' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('nio_title') %>
+        </a><br />
+        <%= property('nio_desc') %>
+      </li>
+      <% } %>  
+
+      <li>
+        <a href="javascript:void 0" onclick="top.showPreloadedPage('apidoc_security')">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('security_title') %>
+        </a><br />
+        <%= property('security_desc') %>
+      </li>
+
+      <% var sharedclasses_path = findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_sharedclasses' ) ) ) %>
+      <% if (sharedclasses_path) { %>
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_sharedclasses' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('sharedclasses_title') %>
+        </a><br />
+        <%= property('sharedclasses_desc') %>
+      </li>
+      <% } %>  
+
+
+    </ul>
+      
+  <% } else { %>
+
+    <p><%= property('compressed') %></p>
+    
+  <% } %>
+</div>
+
+</script>
+</body>
+
+</html>

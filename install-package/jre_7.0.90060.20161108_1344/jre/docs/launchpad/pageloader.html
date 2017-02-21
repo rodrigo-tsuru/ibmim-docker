@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+<HTML LANG="en">
+<title>Loading...</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+<body>
+<script>
+document.writeln('<div id="loading">' + top.property('loading','Loading...') + '</div>');
+var newdoc = document.location.search.substring(1);
+if (typeof document.location.hash != "undefined" && 
+	document.location.hash != null &&
+	document.location.hash.length > 1)
+    newdoc += document.location.hash;
+setTimeout("window.location.href=newdoc",100);
+</script>
+</body>
+</html>

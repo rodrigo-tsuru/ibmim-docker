@@ -1,0 +1,500 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+<HTML LANG="en">
+<HEAD>
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+  <script src="jscp.js">
+  <%@ include file="global.head" %>
+  <% loadCSSfiles(DEFAULTCSS, property('nav_css_files',null)); %>
+
+</HEAD>
+
+<BODY class="navigation">
+
+<%              
+top.navigationDocument = document;
+top.navigationReferences = new Array();
+top.navigationCurrent = null;
+
+document.onselectstart = function() { return false; }
+
+//handle up/down arrow keys in a browser other than IE
+function handleArrowKeys(e) {
+	if(e.keyCode == 38 || e.keyCode == 40){
+		return false;
+	}
+}
+if(top.BROWSER != 'IExplore')
+{
+	document.onkeypress = handleArrowKeys;
+}
+
+
+//This is an associative array that will map a menu name to it's real location on the disk.  This will only hold information
+//for extension items
+top.menuExtensionInfo = new Array();
+
+function _showPreloadedPage(which,hash) {
+    if (typeof top.preloadShowPreloadedPage != "undefined" && top.preloadShowPreloadedPage != null) {
+        top.showPreloadedPage = top.preloadShowPreloadedPage;
+        top.showPreloadedPage(which,hash);
+    } else {
+        if (typeof hash == "string")
+            setTimeout("top.showPreloadedPage('"+which+"','"+hash+"')",500);
+        else
+            setTimeout("top.showPreloadedPage('"+which+"')",500);
+    }
+}
+
+if (typeof top.showPreloadedPage == "undefined")
+    top.showPreloadedPage = _showPreloadedPage;
+
+
+function _navigateTo(itemName) {
+  try {
+    //if (itemName == top.navigationCurrent) return; //??why this?
+    var item = top.navigationReferences[itemName];
+    var currentItem;
+    var itemRelative;
+    var anchor;
+    if (top.navigationCurrent != null)
+      do {
+        currentItem = top.navigationCurrent;
+        
+        // Set the state of the item we're exiting
+        if(top.navigationMode == 'wizard')
+          top.setNavigationState(top.navigationCurrent, 'complete');
+                
+        top.setNavigationState(top.navigationCurrent);
+        top.runAction(currentItem, 'exitAction');
+        
+        itemRelative = itemName;
+        // Find the top parent of the new selected item
+        while (currentItem != itemRelative && itemRelative != startMenu) {
+          itemRelative = top.navigationReferences[itemRelative].parentMenuName;
+        }
+        anchor = top.navigationDocument.getElementById(top.navigationCurrent);
+        // Set current item to deselected and hide submenu items unless the parent 
+        // of a current item was selected
+        if (currentItem != itemRelative) {
+          changeNavigationClass(anchor, top.navigationReferences[currentItem].deselectedStyle);
+          // If this menu item has a submenu, hide the submenu div
+          if (typeof top.navigationReferences[currentItem].order != 'undefined')
+            top.navigationDocument.getElementById(currentItem+'Menu').style.display = 'none';
+          // Set current to parent and work up the submenu chain
+          top.navigationCurrent = top.navigationReferences[currentItem].parentMenuName;
+        } else {
+          // An item in an expanded section was selected, just set its parent to
+          // expanded style
+          changeNavigationClass(anchor, top.navigationReferences[currentItem].expandedStyle);
+        }
+      } while (currentItem != itemRelative && top.navigationCurrent != startMenu);
+
+    // Set selected item class to selectedStyle
+    anchor = top.navigationDocument.getElementById(itemName);
+    changeNavigationClass(anchor, item.selectedStyle);
+    itemRelative = itemName;
+    // Find the top parent of the new selected item
+    do {
+      itemRelative = top.navigationReferences[itemRelative].parentMenuName;
+      if (itemRelative != startMenu) {
+        top.navigationDocument.getElementById(itemRelative+'Menu').style.display = 'block';
+        anchor = top.navigationDocument.getElementById(itemRelative);
+        changeNavigationClass(anchor, top.navigationReferences[itemRelative].expandedStyle);
+      }
+    } while (itemRelative != startMenu);
+    if (typeof item.order != 'undefined')
+    {
+      // Show submenu div for this item
+      top.navigationDocument.getElementById(itemName+'Menu').style.display = 'block';
+    }
+    top.navigationCurrent = itemName;
+	//If navigationHistory has been populated and page being visited isn't last on
+	//queue then add it.
+	if (top.navigationHistory.length == 0 ||
+		(top.navigationHistory.length > 0 && top.navigationHistory[parseInt(top.navigationHistory.length-1)].page != itemName)) {
+			top.navigationHistory.push({
+				page: itemName
+			});
+		}
+	// Set the state of the item we're entering	
+    if(top.navigationMode == 'wizard')
+      top.setNavigationState(top.navigationCurrent, 'default');
+    top.setNavigationState(top.navigationCurrent);
+		
+    // Execute selected item's action
+    if (item.action == "default" || item.action == "Default" || item.action == "DEFAULT") {
+      var preloadId = itemName;
+      if (typeof top.menuExtensionInfo[preloadId] != "undefined") {
+        preloadId = top.menuExtensionInfo[preloadId];
+      }
+      top.showPreloadedPage(preloadId);
+    } else {
+      eval(item.script + "\n" + item.action);
+    }
+    
+    if(top.navigationMode == 'wizard')
+      top.setFooterProperties(itemName); //Sets the wizard options for this page
+    
+    // Execute selected item's enter action
+    top.runAction(top.navigationCurrent, 'enterAction');
+		  
+  } catch(e) { top.logException(e,arguments);}
+}
+
+function createMenu(menuName) {
+    try {
+        top.navigationMode = property('navigationMode', 'default');
+        var menu = property(menuName,null);
+        if (menu == null) {
+            if (!hasMenuExtensions(top.navigationReferences[menuName].parentMenuName)) {
+                top.logMessage("LPV20008S", menuName);
+                alert("Menu property "+menuName+" is not defined");
+                return;
+            } else {
+                //If this is an extension menu, create a new array to house it's properties
+                menu = new Array();
+                //Go ahead and read the extension.properties file into menu.  This will give us the styles we need
+                //to make submenus show up correctly
+                var securityFcn = new Function('return window');
+                var extensionDirectory = top.getNativeFileName(top.STARTINGDIR + "/" + top.RELATIVEDIR + "/" + top.CONTENTDIR + "/" + top.EXTENSIONSDIR + "/" + top.menuExtensionInfo[menuName]);
+                var propFile = top.getNativeFileName(extensionDirectory + "/" + top.EXTENSIONPROPERTIES);
+                if (top.secureFileExists(securityFcn, propFile)) {
+                    top.secureReadPropertiesFile(securityFcn, extensionDirectory, top.EXTENSIONPROPERTIES, menu, top.findProperty('fallBackLocale',self,'en'));
+                } else {
+                    top.logMessage("LPV22037W", top.menuExtensionInfo[menuName]); 
+                }
+            }
+        }
+
+        // Get parent styles or set defaults if this is the top menu item
+        if (menuName == startMenu) {
+            menu.parentMenuName = null;
+            top.navigationReferences[menuName] = menu;
+
+            var parentSelectedStyle = "navigation_menu_row_selected";
+            var parentDeselectedStyle = "navigation_menu_row_deselected";
+            var parentExpandedStyle = "navigation_menu_row_expanded";
+            var parentMenuLevelStyle = "navigation_menu_top";
+        } else {
+            // Get parent menu and its styles as possible defaults for this menu item
+            var parentMenu = top.navigationReferences[top.navigationReferences[menuName].parentMenuName];
+            parentSelectedStyle = parentMenu.selectedStyle;
+            parentDeselectedStyle = parentMenu.deselectedStyle;
+            parentExpandedStyle = parentMenu.expandedStyle;
+            parentMenuLevelStyle = parentMenu.menuLevelStyle;
+        }
+
+        // Get styles for this menu level.  Default to parent if not specified
+        var selectedStyle = menu["selectedStyle"];
+        if ((typeof selectedStyle == "undefined") || selectedStyle == null) {
+            selectedStyle = parentSelectedStyle;
+            menu.selectedStyle = selectedStyle; 
+        }
+        var deselectedStyle = menu["deselectedStyle"];
+        if ((typeof deselectedStyle == "undefined") || deselectedStyle == null) {
+            deselectedStyle = parentDeselectedStyle;
+            menu.deselectedStyle = deselectedStyle;
+        }
+        var expandedStyle = menu["expandedStyle"];
+        if ((typeof expandedStyle == "undefined") || expandedStyle == null) {
+            expandedStyle = parentExpandedStyle;
+            menu.expandedStyle = expandedStyle;
+        }
+        var menuLevelStyle = menu["menuLevelStyle"];
+        if ((typeof menuLevelStyle == "undefined") || menuLevelStyle == null) {
+            menuLevelStyle = parentMenuLevelStyle;
+            menu.menuLevelStyle = menuLevelStyle;
+        }
+
+        var order = menu["order"];
+        //?? Validate order for top menuitem?
+        %>
+        <DIV class="<%= menu.menuLevelStyle %>" id="<%= menuName %>Menu" style="display:none;">
+        <%
+
+        //If no order property is defined, we still want to set up an array to check for menu extensions
+        if (typeof order == "undefined" || order == null) {
+            order = new Array();
+        }
+        //Adds menu extensions 
+        order = addExtensionsToMenu(order, menuName);
+
+        for (var i in order) {
+            var itemName = order[i].name;
+
+            var item = property(itemName,null);
+            var isExtension = false;
+
+            if (item == null) {
+                isExtension = true;
+                var securityFcn = new Function('return window');
+                var extensionDirectory = top.getNativeFileName(top.STARTINGDIR + "/" + top.RELATIVEDIR + "/" + top.CONTENTDIR + "/" + top.EXTENSIONSDIR + "/" + top.menuExtensionInfo[itemName]);
+                //If an extensions directory exists for this menu item, bypass this error message
+                if (!top.secureDirectoryExists(securityFcn, extensionDirectory)) {
+                    top.logMessage("LPV20007S", menuName, itemName);
+                    continue;
+                } else {
+                    item = new Array();
+                    //The only reason for doing this is so the item has a defined "order" property and sub menus will show up properly
+                    item.order = order;
+                    top.secureReadPropertiesFile(securityFcn, extensionDirectory , top.EXTENSIONPROPERTIES, item, top.findProperty('fallBackLocale',self,'en'));
+
+                    var extension_js = top.getNativeFileName(extensionDirectory+ "/" + top.EXTENSIONJS);
+                    if (top.secureFileExists(securityFcn, extension_js)) {
+                        var lines = top.secureReadTextFile(securityFcn, extension_js);
+                        var script = "";
+                        for (var k = 0; k < lines.length; k++) {
+                            script += lines[k] + "\n";
+                        }
+                        item.script = script;
+                    }
+
+                    if (typeof item.action == "undefined") {
+                        item.action = "default";
+                    }
+                }
+            }
+            //Default the extensions.js text to the empty string... just so every menu item has it defined
+            if (typeof item.script == "undefined") {
+                item.script = "";
+            }
+
+            if (firstItemName == null)
+                firstItemName = itemName;
+
+            item.parentMenuName = menuName;
+
+            // Set styles from parent if not set for this menu item
+            if ((typeof item.selectedStyle == "undefined") || item.selectedStyle == null) {
+                item.selectedStyle = menu.selectedStyle; 
+            }
+            if ((typeof item.deselectedStyle == "undefined") || item.deselectedStyle == null) {
+                item.deselectedStyle = menu.deselectedStyle; 
+            }
+            if ((typeof item.expandedStyle == "undefined") || item.expandedStyle == null) {
+                item.expandedStyle = menu.expandedStyle; 
+            }
+            top.navigationReferences[itemName] = item;
+
+			//TODO: we need to account for parent visibilities
+			blockLevelStyleVisible = "navigation_menu_block_visible";
+			blockLevelStyleInvisible = "navigation_menu_block_invisible";
+			
+            var tooltip = item['tooltip'];
+            if (typeof tooltip == "undefined" || tooltip == null) tooltip = '';
+			%>
+			<div class="<%=((typeof item['prereq'] == 'undefined') || eval(item.script + '\n'  + item['prereq']))?blockLevelStyleVisible:blockLevelStyleInvisible %>" id="<%= itemName %>Block">
+                
+				<div class="<%= item.deselectedStyle %>" id="<%= itemName %>" title="<%= tooltip %>" ALT="<%= tooltip %>">
+                	<span class="menuItemSpan unvisited" id="<%= itemName %>Span">
+                		<a class="<%= item.deselectedStyle %>" href="javascript:top.navigateTo('<%= itemName %>')"><%= item["text"] %></a>
+               		</span>
+				</div>
+                <%          
+                if (typeof item['order'] != "undefined" || hasMenuExtensions(itemName) ) {
+                    createMenu(itemName);
+                }
+                %>
+			</div>
+			<%
+        }
+        %>
+        </DIV>
+        <%           
+    } catch(e) { top.logException(e,arguments);}
+}
+
+//Returns true if there are menu extensions for a given name
+function hasMenuExtensions(menuName)
+{
+    var securityFcn = new Function('return window');
+    var extensionDirectory = top.getNativeFileName(top.STARTINGDIR + "/" + top.RELATIVEDIR + "/" + top.CONTENTDIR + "/" + top.EXTENSIONSDIR);
+    var menuExtensionDir = top.getNativeFileName(extensionDirectory + "/" + menuName);
+
+    return top.secureDirectoryExists(securityFcn, menuExtensionDir) && top.secureGetDirectories(securityFcn, menuExtensionDir).length > 0;
+}
+
+//Scans the extensions directory and populates the order list with
+//menu extensions
+function addExtensionsToMenu(order, menuName)
+{      
+    var securityFcn = new Function('return window');
+    var extensionDirectory = top.getNativeFileName(top.STARTINGDIR + "/" + top.RELATIVEDIR + "/" + top.CONTENTDIR + "/" + top.EXTENSIONSDIR);
+    var menuExtensionDir = top.getNativeFileName(extensionDirectory + "/" + menuName);
+
+    //This is a hash of menu names to weights
+    var extensionWeights = new Array();
+
+    //Check to see if a menu extensions directory exists for this menu item
+    if (top.secureDirectoryExists(securityFcn, menuExtensionDir)) {
+        var dirs = top.secureGetDirectories(securityFcn, menuExtensionDir);
+        for (var i = 0; i < dirs.length; i++) {
+            if (top.secureFileExists(securityFcn, top.getNativeFileName(menuExtensionDir + "/" + dirs[i] + "/" + top.EXTENSIONPROPERTIES))) {
+                var extensionProperties = new Array();
+                top.secureReadPropertiesFile(securityFcn, top.getNativeFileName(menuExtensionDir + "/" + dirs[i] + "/") , top.EXTENSIONPROPERTIES, extensionProperties, top.findProperty('fallBackLocale',self,'en'));                
+                if (typeof extensionProperties.weight == "undefined") {
+                    extensionProperties.weight = (order.length * 10) + ((i + 1) * 10);
+                }
+                var id = dirs[i];
+                //Just keep looping until we have a unique id;
+                while (typeof top.menuExtensionInfo[id] != "undefined") {
+                    id += "_";
+                }
+                top.menuExtensionInfo[id] = menuName + "/" + dirs[i];
+                extensionWeights[id] = extensionProperties.weight;            
+            }
+            else
+            {
+                top.logMessage("LPV22037W", menuExtensionDir + "/" + dirs[i]); 
+            }
+        }
+    }
+
+    //Assign a weight to each menu item.  If one is not defined in navigation.properties (most likely the case,
+    //Use the items position in the order array to determine it's default weight
+    for (var i = 0; i < order.length; i++) {
+        var item = property(order[i],null);
+        var weight = (i + 1) * 10;
+        if (typeof item.weight != "undefined") {
+          weight = item.weight;
+        }        
+        extensionWeights[order[i]] = weight;
+    }
+
+    var orderedItems = new Array();
+    for (var j in extensionWeights) {
+        orderedItems = insertByWeight(orderedItems, j, extensionWeights[j]);
+    }
+   
+    return orderedItems;
+}
+
+function insertByWeight(orderedItems, menuName, weight)
+{    
+    try
+    {
+        var insertionLocation = orderedItems.length;
+        for (var i = 0; i < orderedItems.length; i++) {
+            //the *1 ensures a numeric comparison occurs and not a string compare
+            if (weight*1 < orderedItems[i].weight *1) {
+                insertionLocation = i;
+                break;
+            }
+        }
+
+        var newItem = new Array();
+        newItem.name = menuName;
+        newItem.weight = weight;
+
+        return insertItemAt(orderedItems, newItem, insertionLocation);
+    }
+    catch(e)
+    {
+        top.logException(e, arguments);
+    }
+}
+
+function insertItemAt(orderedItems, newItem, insertionLocation)
+{
+    try
+    {
+        var beginArray = new Array();
+        for (var i = 0; i < insertionLocation; i++) {
+            beginArray[i] = orderedItems[i];
+        }
+        var endArray = new Array();
+
+        for (var i = insertionLocation; i < orderedItems.length; i++) {
+            endArray[i - insertionLocation] = orderedItems[i];
+        }
+
+        beginArray[insertionLocation] = newItem;
+
+        for (var i = 0; i <  endArray.length; i++) {
+            beginArray[i + insertionLocation + 1] = endArray[i];
+        }
+        return beginArray;
+    }
+    catch(e)
+    {
+        top.logException(e,arguments);
+    }
+}
+
+function changeNavigationClass(anchor, className)
+{
+  var hasWizardState = false;
+  var classArray = anchor.className.split(" ");
+  
+  var newClass = "";
+  
+  for(var i in top.wizardNavStates)
+  {
+    for(var j in classArray)
+    {
+      if(top.wizardNavStates[i] == classArray[j])
+      {
+        newClass = classArray[j];
+        hasWizardState = true;
+      }
+    }
+  }
+  anchor.className = newClass + (hasWizardState ? " " : "") + className;
+}
+
+//
+// Main Code
+//
+var firstItemName = null;
+var navigationMenuPrefix = property('menuPrefix',' ');
+%>
+
+<div class="navigation_menu_container">
+<div class="navigation_menu_padding">
+<%= navigationMenuPrefix %>
+<div class="navigation_menu">
+<%
+var startMenu = property("startMenu", "menu");
+top.startMenu = startMenu;
+createMenu(startMenu);
+
+// Write out suffix property if it is defined
+var navigationMenuSuffix = property('menuSuffix', ' ');
+%>
+</div>
+<%= navigationMenuSuffix %>
+<!-- HACK:  IE adds the padding to the last menu item unless there is an element in between -->
+<div id="navigation_menu_padding_ie_fix" style="height: 0px"></div>
+</div>
+</div>
+<%
+top.navigateTo = _navigateTo;
+
+// Enable top level menu div
+top.navigationDocument.getElementById(startMenu+'Menu').style.display = 'block';
+
+var menu = property(startMenu,null);
+if (menu != null && typeof menu['default'] == "string")
+    top.navigateTo(menu['default']);
+
+top.navigationLoaded = true;
+%>
+
+<div class="backgroundFade" id="backgroundFadeWrapper">
+	<div class="backgroundFade" id="backgroundFade">
+	</div>
+</div>
+<div id="background_image_wrapper">
+	<div id="background_image">    
+    </div>
+</div>
+</SCRIPT>
+
+</BODY>
+</HTML>

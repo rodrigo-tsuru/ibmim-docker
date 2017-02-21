@@ -1,0 +1,39 @@
+An error occurred while starting the launchpad.  This error typically
+occurs when the launchpad is unable to find a supported browser.
+
+Accessing the documentation without the launchpad
+=================================================
+
+You can access the documentation without a browser by looking in the docs
+directory of the sdk. The documentation files are held in the content
+directory.
+
+API documentation is held in the apidocs directory. Other documentation
+is held in language-specific directories.  If a document does not exist
+for your language, use the English version in the en directory.
+
+Correcting the error that is preventing the launchpad from displaying
+=====================================================================
+
+The launchpad supports the following browsers:
+   o   Mozilla
+   o   Firefox
+   o   Internet Explorer (Microsoft Windows platforms only)
+
+Use the following procedure to attempt to correct the error that is
+preventing the launchpad from displaying and to try to restart the
+launchpad:
+
+1. If you do not have the Mozilla Web browser, download and install the
+   Mozilla Web browser from http://www.mozilla.org. 
+
+    On Linux and UNIX platforms, export the location of the supported
+    browser. For example:   
+
+    export BROWSER=/usr/bin/mozilla
+
+2. Restart the launchpad by issuing the following command in the docs
+   directory: 
+
+	Linux and UNIX platforms:      ./launchpad.sh
+	Windows platforms:             launchpad.exe

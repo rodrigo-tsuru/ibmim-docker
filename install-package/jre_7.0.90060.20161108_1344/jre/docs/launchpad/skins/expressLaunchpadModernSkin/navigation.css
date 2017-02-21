@@ -1,0 +1,127 @@
+/* Licensed Materials - Property of IBM */
+/* 5648-F10 (C) Copyright International Business Machines Corp. 2005 */
+/* All Rights Reserved */
+/* US Government Users Restricted Rights - Use, duplication or disclosure */
+/* restricted by GSA ADP Schedule Contract with IBM Corp. */
+
+/* This section controls the formatting of the navigation frame */
+
+/* This selector controls the navigation frame body global settings */
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+.navigation {
+	color: <%= property('textColor', '#284E73') %>;
+	background-color: <%= property('backgroundColor', '#FFFFFF') %>;
+	background-image: url(<%= findURL(null, property('navigationBackgroundImage','images/navigation.gif')) %>);
+	background-repeat: no-repeat; 
+	background-position: bottom <%= bidiString('right','left') %>;
+}
+
+.navigation_menu_container {
+	height: 100%;
+	overflow: auto;
+}
+
+.navigation_menu_padding {
+	padding-top: 20px;
+	padding-bottom: 50px;
+}
+
+.navigation_menu {
+	display: block;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	text-align: <%= bidiString('right','left') %>;
+	text-decoration: none;
+}
+
+.navigation_menu_block_visible {
+	display: block;
+}
+
+.navigation_menu_block_invisible {
+	display: none;
+}
+
+.menuItemSpan {
+	display: block;
+	padding: 6px;
+	padding-<%= bidiString('right','left') %>: 32px;
+	background-repeat: no-repeat;
+	background-position: <%= bidiString('95%','5%') %> 50%;
+}
+
+.navigation_menu_row_selected, 
+.navigation_menu_row_deselected,
+.navigation_menu_row_expanded {
+	display: block;
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: <%= bidiString('95%','5%') %> 50%;
+}
+
+.navigation_menu_row_selected {
+	background-image: url(<%= findURL(null, property('navigationCurrentImage','images/activeLabelIcon' + bidiString('_bidi','') + '.gif')) %>);
+	background-color: <%= property('backgroundColor', '#FFFFFF') == property('highlightColor', '#FFFFFF') ? 'transparent' : property('highlightColor', '#FFFFFF') %>;
+	border-top: 1px solid <%= property('backgroundColor', '#FFFFFF') == property('borderColor', '#FFFFFF') ? 'transparent' : property('borderColor', '#FFFFFF')  %>;
+	border-bottom: 1px solid <%= property('backgroundColor', '#FFFFFF') == property('borderColor', '#FFFFFF') ? 'transparent' : property('borderColor', '#FFFFFF')  %>;
+	border-<%= bidiString('right','left') %>: 1px solid <%= property('backgroundColor', '#FFFFFF') == property('borderColor', '#FFFFFF') ? 'transparent' : property('borderColor', '#FFFFFF')  %>;
+}
+
+.navigation_submenu    {
+	display: block;
+	padding-<%= bidiString('right','left') %>: 18px;
+}
+
+
+.navigation_menu_row_deselected,
+.navigation_menu_row_deselected:visited,
+.navigation_menu_row_expanded,
+.navigation_menu_row_expanded:visited {
+	color: <%= property('textColor', '#284E73') %>;
+	text-decoration: none;
+}
+
+.navigation_menu_row_selected, 
+.navigation_menu_row_selected:visited {
+	font-weight: bold;
+	color: <%= property('textColor', '#284E73') %>;
+	text-decoration: none;
+}
+
+.navigation_menu_row_deselected:hover,
+.navigation_menu_row_selected:hover,
+.navigation_menu_row_expanded:hover {
+	background-color: <%= property('backgroundColor', '#FFFFFF') == property('rolloverColor', '#FFFFFF') ? 'transparent' : property('rolloverColor', '#FFFFFF') %>;
+}
+
+.active, .current {
+	background-image: url(<%= findURL(null, property('navigationCurrentImage','images/activeLabelIcon' + bidiString('_bidi','') + '.gif')) %>);
+}
+
+.complete {
+	background-image: url(<%= findURL(null, property('navigationCompleteImage','images/completedLabelIcon' + bidiString('_bidi','') + '.gif')) %>);
+
+}
+
+.unvisited {
+	<%= property('navigationMode','default') == 'wizard' ? "background-image: url(" + findURL(null, property('navigationDefaultImage','images/upcomingLabelIcon' + bidiString('_bidi','') + '.gif')) + ");" : " " %>
+}
+
+.incomplete, .warning {
+	background-image: url(<%= findURL(null, property('navigationIncompleteImage','images/warning.gif')) %>);
+}
+
+.error {
+	background-image: url(<%= findURL(null, property('navigationErrorImage','images/error.gif')) %>);
+}
+
+/* HACK:  Fixes issues with scrollbars appearing on mozilla/firefox when the focus box is displayed */
+:link:focus, :visited:focus {
+	margin-left: 1px;
+	margin-right: 1px;
+}

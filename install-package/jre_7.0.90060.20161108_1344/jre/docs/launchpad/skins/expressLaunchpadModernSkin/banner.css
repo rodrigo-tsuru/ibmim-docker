@@ -1,0 +1,79 @@
+/* Licensed Materials - Property of IBM */
+/* 5648-F10 (C) Copyright International Business Machines Corp. 2005 */
+/* All Rights Reserved */
+/* US Government Users Restricted Rights - Use, duplication or disclosure */
+/* restricted by GSA ADP Schedule Contract with IBM Corp. */
+
+/* This file formats the banner frame with the language selection box and logo
+   image.  These are positioned using a table */
+
+/* The actual background image is controlled by the "bannerBackground" property */
+body{
+    background-color:<%= property('backgroundColor', '#6998c8') %>;
+	font-family: Helvetica, Verdana, Arial, sans-serif;
+	padding: 0px;
+}
+
+#title {
+    text-align: <%= bidiString('right','left') %>;
+    vertical-align: center;
+	padding: 0 15px;
+    font-weight: bold;
+    font-size: 14pt;
+    color: <%= property('textColor', '#FFFFFF') %>;
+}
+
+.mainDiv {
+	background-image:url(<%= findURL(null,property('bannerBackground')) %>);
+	background-repeat: no-repeat;
+	background-position: top <%= bidiString('right','left') %>;
+	height: 100%;
+}
+
+#bannerImageTable{
+	<%= property('languageSelectionType','embedded') == 'embedded' ? 'margin-top: -15px;' : ' ' %>
+	height: 100%;
+	background-image:url(<%= findURL(null,property('bannerLogo')) %>);
+	background-repeat: no-repeat;
+	background-position: center <%= bidiString('left','right') %>;
+}
+
+/* Set common table styles */
+table {
+    width:100%;
+}
+
+/* Set the language option box in the center right */
+tr {
+    vertical-align:middle;
+    text-align:<%= bidiString('right','left') %>;
+}
+
+/* This sets the font and background colors for the option box */
+select {
+    margin-<%= bidiString('left','right') %>:3px;
+    color: #000;
+    background-color:white;
+}
+
+/* Force this cell to 1px so that the right column is only the width of the graphic */
+.logoCell {
+    width:1px;
+}
+
+.toolBar {    
+    background-color:<%= property('backgroundColor', '#6998c8') %>; 
+    color: <%= property('textColor', '#FFFFFF') %>;
+    position: absolute;
+	z-index: 3;
+    bottom: 5px;
+    <%= bidiString('left','right') %>: 0px;
+	<%= property('languageSelectionType','embedded') == 'embedded' ? ' ' : 'display: none;' %>
+}
+
+/* Set the language option box in the center right */
+.label {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9pt;
+    font-weight:bold;
+}

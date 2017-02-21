@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+                                                                                
+<pluginimploverrides>
+	<pluginimploverride id="I5OSLaunchConfigManagerPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.config.I5OSLaunchConfigManagerPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.config.I5OSLaunchConfigManagerPlugin"/>
+	</pluginimploverride>
+	<pluginimploverride id="LaunchConfigManagerPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.config.LaunchConfigManagerPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.config.LaunchConfigManagerPlugin"/>
+	</pluginimploverride>	
+	<pluginimploverride id="NIFConfigPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.config.NIFConfigPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.config.NIFConfigPlugin"/>
+	</pluginimploverride>		
+	<pluginimploverride id="NIFConfigPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.config.NIFConfigPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.config.NIFConfigPlugin"/>
+	</pluginimploverride>	
+	<pluginimploverride id="EnablingPackInfoPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.maintenanceplugins.EnablingPackInfoPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.install.internal.metadata.EnablingPackInfoPlugin"/>
+	</pluginimploverride>
+	<pluginimploverride id="MaintenanceInfoPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.maintenanceplugins.MaintenanceInfoPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.metadata.MaintenanceInfoPlugin"/>
+	</pluginimploverride>
+	<pluginimploverride id="MaintenanceApplicationPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.maintenanceplugins.MaintenanceApplicationPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.metadata.MaintenanceApplicationPlugin"/>
+	</pluginimploverride>	
+	<pluginimploverride id="ModifyNIFMetaDataPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.metadata.ModifyNIFMetaDataPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.metadata.ModifyNIFMetaDataPlugin"/>
+	</pluginimploverride>	
+	<pluginimploverride id="ModifyNIFPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.metadata.ModifyNIFPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.metadata.ModifyNIFPlugin"/>
+	</pluginimploverride>		
+	<pluginimploverride id="UpdateNIFPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.metadata.UpdateNIFPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.metadata.UpdateNIFPlugin"/>
+	</pluginimploverride>		
+	<pluginimploverride id="DeploySatellitesPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.satellites.DeploySatellitesPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.DeploySatellitesPlugin"/>
+	</pluginimploverride>
+	<pluginimploverride id="SatelliteApplicationPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.satellites.SatelliteApplicationPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.SatelliteApplicationPlugin"/>
+	</pluginimploverride>	
+	<pluginimploverride id="ConfigureSatellitesPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.satellites.ConfigureSatellitesPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.config.ConfigureSatellitesPlugin"/>
+	</pluginimploverride>	
+	<pluginimploverride id="NIFInstallListOfPackagesPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.install.NIFInstallListOfPackagesPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.NIFInstallListOfPackagesPlugin"/>
+	</pluginimploverride>		
+	<pluginimploverride id="NIFInstallPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.install.NIFInstallPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.NIFInstallPlugin"/>
+	</pluginimploverride>		
+	<pluginimploverride id="NIFPackageApplicationPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.install.NIFPackageApplicationPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.NIFPackageApplicationPlugin"/>
+	</pluginimploverride>	
+	<pluginimploverride id="NIFPluginParamOverridePlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.install.NIFPluginParamOverridePlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.install.NIFPluginParamOverridePlugin"/>
+	</pluginimploverride>
+	<pluginimploverride id="ProductPlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.product.ProductPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.utils.product.ProductPlugin"/>
+	</pluginimploverride>	
+	<pluginimploverride id="NIFCachePlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.plugin.NIFCachePlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.NIFCachePlugin"/>
+	</pluginimploverride>	
+	<pluginimploverride id="UpdateComponentMultiPlatform"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.updi.component.was.UpdateComponentMultiPlatform"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.utils.componentactions.UpdateComponentMultiPlatform"/>
+	</pluginimploverride>		
+	<pluginimploverride id="UpdateComponent"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.updi.component.was.UpdateComponent"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.utils.componentactions.UpdateComponent"/>
+	</pluginimploverride>		
+	<pluginimploverride id="ProductPlugins"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.pak.core.utils.internal.product.ProductPlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.utils.product.ProductPlugin"/>
+	</pluginimploverride>		
+	<pluginimploverride id="ExecEnginePlugin"
+			cache="true"
+			impl="com.ibm.ws.pak.internal.NIFPluginImplOverridePlugin">
+		<param name="originalimpl" value="com.ibm.ws.install.ni.framework.maintenanceplugins.ExecEnginePlugin"/>
+		<param name="newimpl" value="com.ibm.ws.pak.internal.utils.componentactions.DummyExecEnginePlugin"/>
+	</pluginimploverride>			
+</pluginimploverrides>

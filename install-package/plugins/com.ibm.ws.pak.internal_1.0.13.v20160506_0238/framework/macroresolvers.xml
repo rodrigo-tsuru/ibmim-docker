@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<macroresolvers>
+	<macroresolver id="nifpluginattributemacroresolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.NIFPluginAttributeMacroResolver"/>
+	<macroresolver id="installtoolkitbridgemacroresolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.InstallToolkitBridgeMacroResolver"/>
+	<macroresolver id="pathtofilesystemurimacroresolver"
+		    impl="com.ibm.ws.pak.internal.utils.macroresolvers.PathToFileSystemURIMacroResolver">
+        <param name="extensiontoschememapping" value="pak;zip://"/>
+        <param name="extensiontoschememapping" value="zip;zip://"/>
+        <param name="extensiontoschememapping" value="jar;zip://"/>
+    </macroresolver>
+	<macroresolver id="sharingtokensmacroresolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.SharingTokensMacroResolver"/>
+	<macroresolver id="andconditionmacroresolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.AndConditionMacroResolver"/>
+	<macroresolver id="orconditionmacroresolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.OrConditionMacroResolver"/>
+	<macroresolver id="notconditionmacroresolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.NotConditionMacroResolver"/>
+	<macroresolver id="equalsconditionmacroresolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.EqualsConditionMacroResolver"/>
+	<macroresolver id="comparingVersionMacroResolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.ComparingVersionsMacroResolver"/>
+	<macroresolver id="nifstackpayloadversionMacroResolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.NIFStackPakversionMacroResolver"/>
+	<macroresolver id="nifstackpakdependentversionsMacroResolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.NIFStackPakDependentVersionsMacroResolver"/>
+	<macroresolver id="nifstackpakdependentmaintenancenameanddescriptionMacroResolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.NIFStackPakDependentMaintenanceNameAndDescriptionMacroResolver"/>		
+	<macroresolver id="UninstallCommonPakMacroResolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.UninstallCommonPakMacroResolver"/>	
+	<macroresolver id="UninstallablePakListMacroResolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.UninstallablePakListMacroResolver"/>	
+	<macroresolver id="nifformatstringtohtmlbulletMacroResolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.FormatStringToHTMLBullet"/>		
+	<macroresolver id="nifresourcebundlemacroresolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.NIFResourceBundleMacroResolver"/>
+	<macroresolver id="getpackagenamesmacroresolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.GetPackageNamesMacroResolver"/>
+	<macroresolver id="replaceAllMacroResolver"
+		impl="com.ibm.ws.pak.internal.utils.macroresolvers.RepaceAllMacroResolver"/>
+	<macroresolver id="pathtobasenamemacroresolver"
+		    impl="com.ibm.ws.pak.internal.utils.macroresolvers.PathToBaseNameMacroResolver"/>
+	<macroresolver id="pathtobasenamenoextensionmacroresolver"
+		    impl="com.ibm.ws.pak.internal.utils.macroresolvers.PathToBaseNameNoExtensionMacroResolver"/>
+	<macroresolver id="installedproductsmacroresolver"
+		    impl="com.ibm.ws.pak.internal.utils.macroresolvers.InstalledProductsMacroResolver"/>
+	<macroresolver id="matchconditionmacroresolver"
+		    impl="com.ibm.ws.pak.internal.utils.macroresolvers.MatchConditionMacroResolver"/>
+    <macroresolver id="UninstallableCCPAKListMacroResolver"
+		    impl="com.ibm.ws.pak.internal.utils.macroresolvers.UninstallableCommonComponentPakListMacroResolver"/>
+</macroresolvers>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+    <extension
+         id="linuxVariableProvider"
+         point="com.ibm.cic.agent.core.variableProvider">
+      <variableProvider
+            class="com.ibm.cic.agent.internal.adapters.nativeAdapter.linux.LinuxVariableProvider">
+      </variableProvider>
+   </extension>
+  <extension
+    point="com.ibm.cic.agent.core.installAdaptors"
+    id="nativeLinuxAdapter"
+    name="native Linux Install Adapter">
+    <installAdaptor
+      type="nativeLinux"
+      class="com.ibm.cic.agent.internal.adapters.nativeAdapter.linux.NativeLinuxInstallAdapter"/>
+  </extension>
+  <extension
+        point="com.ibm.cic.common.core.exportMessages">
+     <messages class="com.ibm.cic.agent.internal.adapters.nativeAdapter.linux.Messages"/>
+  </extension>   
+</plugin>

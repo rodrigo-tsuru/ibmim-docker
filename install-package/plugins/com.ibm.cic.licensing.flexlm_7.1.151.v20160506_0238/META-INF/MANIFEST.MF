@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Export-Package: com.ibm.cic.licensing.flexlm;version="7.0.0"
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)
+ ",com.ibm.icu;bundle-version="3.4.4",com.ibm.cic.licensing.common.uti
+ l;bundle-version="[7.0.0,8.0.0)",com.ibm.cic.licensing.common.core;bu
+ ndle-version="[7.0.0,8.0.0)"
+Bundle-Vendor: %providerName
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: flexlicensing.jar,FlexLM_jars/flexlm.jar,FlexLM_jars
+ /EccpressoAll.jar
+Bundle-Version: 7.1.151.v20160506_0238
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Activator: com.ibm.cic.licensing.flexlm.FlexlmPlugin
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.ibm.cic.licensing.flexlm;singleton:=true
+From-Capilano-Version: 1.8.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+
+

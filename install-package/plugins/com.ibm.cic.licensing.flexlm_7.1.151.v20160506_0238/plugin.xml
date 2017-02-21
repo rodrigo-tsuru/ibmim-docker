@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="flexCheck"
+         name="FLEXlm license checker"
+         point="com.ibm.cic.licensing.common.core.licenseCheckProvider">
+      <licenseChecker
+            class="com.ibm.cic.licensing.flexlm.FlexCheck"
+            type="FLEX"/>
+   </extension>
+
+</plugin>

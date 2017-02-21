@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+    <script src="../../jscp.js">
+    <%@ include file="global.head" %>
+    <% loadCSSfiles(DEFAULTCSS); %>
+
+</head>
+
+<body onload="top.loadDefaultFooter();">
+<div id="buttonBar">
+  <div style="display:none" id="progress_wrapper">
+    <span id="progress_description">&nbsp;</span>		
+    <div id="progress_outer_border">
+      <span id="percent_complete_string"></span>
+      <div id="progress" class="progress_indeterminate">
+      </div>  
+    </div>
+	</div>
+<div id="navButtons">
+  <form>
+		<input id="previousButton" type="button" name="Previous" value="Previous" onclick="top.previous();"> 
+		<input id="nextButton" type="button" name="Next" value="Next" onclick="top.next();">
+	</form>
+</div>
+<div id="cancelHelpButtons">
+	<form id="cancelHelpForm">
+		<input id="cancelButton" type="button" name="Cancel" value="Cancel" onclick="top.cancel();"> 
+		<input id="helpButton" type="button" name="Help" value="Help" onclick="top.help();"> 
+	</form>
+</div>
+</div>
+</body>
+</script>
+</html>

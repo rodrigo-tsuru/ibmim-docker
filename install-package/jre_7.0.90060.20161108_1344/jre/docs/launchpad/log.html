@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+<HTML lang="en">
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<script src="jscp.js">
+<%@ include file="global.head" %>
+<style>
+body {
+    font-family:Arial,sans-serif;
+    font-size:12px;
+}
+
+#logBody
+{
+  display: none;
+}
+
+
+.top_heading {
+    text-align:<%= bidiString('right', 'left') %>;
+    color:blue;
+}
+table {
+    font-size:12px;
+}
+
+th {
+    text-align:<%= bidiString('right', 'left') %>;
+    background-color:silver;
+    padding-left:.5em;
+    padding-right:.5em;
+}
+
+th.message_col {
+    width:100%;
+}
+td {
+    padding-left:0.5em;
+}
+
+.footer {
+    padding-top:1em;
+}
+</style>
+
+</HEAD>
+
+<BODY>
+<div id="logBody">
+
+<div class="top_heading">
+    <span>&nbsp;&nbsp;Launchpad V<%=property("launchpadVersion","?.?")%>&nbsp;(<%=property("launchpadBuild","build unknown")%>)</span>
+</div>
+
+<TABLE border='0' cols="5" cellspacing='1' cellpadding='0' id="logtable">
+    <TR>
+        <TH class="time_col"><%= property('messageTimestamp','TimeStamp') %></TH>
+        <TH class="message_num_col"><%= property('messageNumber','ID') %></TH>
+        <TH class="message_col"><%= property('messageText','Message') %> (<%=property("filterText","Filter")+"=\'"+engineTop.LOGFILTER+"\'"%>)</TH>
+    </TR>
+</TABLE>
+<div class="footer">
+    <form style="display:inline">
+    <input type=button name="bottom_clear" value="<%= property('clearLog','Clear') %>" onClick="clearLog()">
+    <input type=button name="bottom_print" value="<%= property('printLog','Print') %>" onClick="printLog()">
+    <input type=button name="bottom_save" value="<%= property('saveLog','Save') %>" onClick="saveLog()">
+    </form>
+</div>
+
+<%
+engineTop.setMaxLogFileSize = function _setMaxLogFileSize(size) {
+    engineTop.maxLogFileSize = size;
+}
+
+engineTop.showMessage = function _showMessage(date,args) {
+
+    var messageID = args[0];
+    var logMessage = engineTop.getFormattedMessage(args);    
+    if (engineTop.logtable.rows.length > engineTop.maxLogFileSize) {
+	engineTop.logtable.deleteRow(1);
+    }
+    var newRow = engineTop.logtable.insertRow(-1);
+    newRow.insertCell(-1).innerHTML = "<nobr>"+date.toLocaleString()+"&nbsp;</nobr>";
+    newRow.insertCell(-1).innerHTML = messageID+"&nbsp;";
+    newRow.insertCell(-1).innerHTML = "<nobr>"+logMessage+"</nobr>";
+    if (document.body.scrollHeight > document.body.clientHeight)
+        window.scrollTo(0,(document.body.scrollHeight - document.body.clientHeight));
+}
+
+engineTop.getFormattedMessage = function _getFormattedMessage(args) {
+    var template = null;
+    var messageID = args[0];
+    try { template = property(messageID,null); } catch(e) {}
+    if (typeof template != "string") {
+	try { template = property(messageID.substring(0,messageID.length-1),null); } catch(e) {}
+    }
+    var logMessage = null;
+    if (typeof template == "string")
+        logMessage = engineTop.formatmsg(template,args);
+    if (typeof logMessage != "string" || typeof template != "string") {
+	template = property('LPV20014S','Invalid log message [%1]');
+	logMessage = engineTop.formatmsg(template,args.toString());
+    }  
+    logMessage = logMessage.replace(/</g, "&lt;"); 
+    
+    return logMessage;
+}
+
+function clearLog() {
+    for (var i = engineTop.logtable.rows.length-1; i > 0; i--)
+	engineTop.logtable.deleteRow(i);
+}
+
+function printLog() {
+    window.print();
+}
+
+function saveLog() {
+    try {
+        document.execCommand('SaveAs', true, 'LaunchPadLog.txt')
+    } catch(e) {
+	var lines = new Array();
+	var row = engineTop.logtable.rows[0];
+	lines.push("Launchpad V"+property("launchpadVersion","?.?")+"("+property("launchpadBuild","build unknown")+")");
+	lines.push(row.cells[0].innerHTML+' '+row.cells[1].innerHTML+' '+row.cells[2].innerHTML);
+	for (var i = 1; i < engineTop.logtable.rows.length; i++) {
+	    row = engineTop.logtable.rows[i];
+	    var outstr = row.cells[0].innerHTML.substring(6,row.cells[0].innerHTML.length-7)+' '+row.cells[1].innerHTML+' '+row.cells[2].innerHTML.substring(6,row.cells[2].innerHTML.length-7);
+	    var j = outstr.indexOf("\r\n");
+	    while (j >= 0) {
+		outstr = outstr.substring(0,j)+' '+outstr.substring(j+2);
+		j = outstr.indexOf("\r\n");
+	    }
+	    j = outstr.indexOf("\n");
+	    while (j >= 0) {
+		outstr = outstr.substring(0,j)+' '+outstr.substring(j+1);
+		j = outstr.indexOf("\n");
+	    }
+	    lines.push(outstr);
+	}
+	engineTop.secureWriteTextFile(new Function('return window'), engineTop.chooseFileName(top.SAVEMODE,'LaunchPadLog.txt'), lines);
+    }
+    return null;
+}
+
+// Main code
+engineTop.maxLogFileSize = property('maxLogEntries',10000);
+engineTop.logtable = document.getElementById('logtable');
+engineTop.dumpBufferedLogMessages();
+%>
+</SCRIPT>
+
+</div>
+</BODY>
+</HTML>
+

@@ -1,0 +1,149 @@
+
+.dialogWrapper {
+  color:#000000;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+.dialogSpan {
+  width: 100%;
+  background: #e7e3e7;
+}
+
+.dialogCloseButtonContainer {
+	text-align: <%= bidiString('left','right') %>;
+	cursor: pointer;
+	height: 16px;
+	margin-bottom: -16px;
+}
+.dialogContentContainer {
+	text-align: center;
+	padding: 10px;
+	overflow: auto;
+}
+
+.dialogButtonBarContainer{
+	text-align: <%= bidiString('left','right') %>;
+	vertical-align: bottom; 
+	margin: 0px; 
+	padding: 5px 5px 5px 5px;
+}
+
+.dialogTitleContainer {
+	height: 20px;
+	padding: 3px 0 0 3px;
+	margin: 0 0 0 0;
+	border-bottom: 1px solid #b7b3b7;
+	text-align: <%= bidiString('right','left') %>;
+}
+
+.dialogCloseButtonContainer img{
+	position: relative;
+	top: 3px;
+	right: 3px;
+}
+
+.dialogButtonBar {
+	height: 35px;
+}
+
+.dialogButtonBar input{
+	margin: 0 3px 0 0; 
+}
+
+.dialogButton {
+	
+}
+
+#languageButton {
+	margin: 0 4px;
+}
+
+#languageSelectionForm {
+  margin: 25px 0;
+}
+
+#langSelectWrapper {
+  color:<%= property('languageTextColor', property('textColor', '#000000')) %>;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+#languageSelectionSpan {
+  background: <%= property('languageBackgroundColor', '#e7e3e7') %>;
+}
+#languageSelectionTitle {
+	margin: 0;
+	padding: 3px 10px 0 10px;
+	width: 300px;
+	height: 20px;
+	border-bottom: 1px solid #b7b3b7;
+	text-align: <%= bidiString('right','left') %>;
+}
+
+#launchpadLogo {
+	display: none;
+}
+
+.fill { width: 100%; height: 100%; }
+.fillWidth { width: 100%; }
+.fillHeight { height: 100%; }
+
+.fillIE { #width: 100%; #height: 100%; }
+.fillWidthIE { #width: 100%; }
+.fillHeightIE { #height: 100%; }
+
+html>/**/body .fillMozilla { width: 100%; height: 100%; }
+html>/**/body .fillWidthMozilla { width: 100%; }
+html>/**/body .fillHeightMozilla { height: 100%; }
+
+.inlineBlock {
+	display: -moz-inline-box;
+	display: inline-block;
+}
+
+.outerVerticalCenteringWrapper {
+	display: table;
+	height: 100%;
+	position: relative;
+}
+.innerVerticalCenteringWrapper {
+	display: table-cell;
+	vertical-align: middle;
+	#vertical-align: baseline;
+	#position: absolute;
+	#top: 50%;
+}
+.verticallyCenteredContent { 
+	#position: relative;
+	#top: -50%;
+}
+
+.horizontallyCenteredContent {
+	margin:0 auto;
+	display: table;
+}
+
+.horizontallyCenteredContentIE {
+	#margin:0 auto;
+}
+
+html>/**/body .horizontallyCenteredContentMozilla {
+	margin:0 auto;
+}
+
+.highZIndex { z-index: 10000; }
+.mediumZIndex { z-index: 5000; }
+.shiny { background: url('dia_gradient_1px.gif'); }
+.white { background: white; }
+.black { background: black; }
+.green { background: green; }
+.purple { background: purple; }
+.red { background: red; }
+.blue { background: blue; }
+.yellow { background: yellow; }
+.semitransparent { opacity: .80; -moz-opacity: .80; filter: alpha(opacity=80); }
+.centerAlign { text-align: center; }
+.leftAlign { text-align: left; }
+.border { border: thin outset; }
+.absolute{ position: absolute; 	top: 0; left: 0; }

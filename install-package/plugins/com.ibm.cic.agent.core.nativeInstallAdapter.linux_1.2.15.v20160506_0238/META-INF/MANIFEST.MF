@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,com.ibm.
+ cic.common.core,com.ibm.cic.common.commonNativeAdapterData,com.ibm.ci
+ c.common.nativeAdapterData.linux,com.ibm.cic.agent.core,com.ibm.cic.a
+ gent.core.commonNativeInstallAdapter,com.ibm.cic.agent.core.nativeIns
+ tallAdapter
+Bundle-Vendor: %providerName
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: nativeInstallAdapterLinux.jar
+Bundle-Version: 1.2.15.v20160506_0238
+Eclipse-PlatformFilter: (osgi.os=linux)
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-Activator: com.ibm.cic.agent.internal.adapters.nativeAdapter.li
+ nux.NativeLinuxAdapterPlugin
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.ibm.cic.agent.core.nativeInstallAdapter.linux
+ ; singleton:=true
+From-Capilano-Version: 1.8.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+
+

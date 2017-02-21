@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<file-actions>
+    <file-action id="nopfileaction"
+		impl="com.ibm.ws.pak.internal.utils.fileactions.NOPFileActionPlugin"/>
+	<file-action id="addfileaction"
+		impl="com.ibm.ws.pak.internal.utils.fileactions.AddFileActionPlugin"/>
+	<file-action id="replacefileaction"
+		impl="com.ibm.ws.pak.internal.utils.fileactions.ReplaceFileActionPlugin"/>
+	<file-action id="removefileaction"
+		impl="com.ibm.ws.pak.internal.utils.fileactions.RemoveFileActionPlugin"/>
+	<file-action id="addsymlinkfileaction"
+		impl="com.ibm.ws.pak.internal.utils.fileactions.AddSymLinkFileActionPlugin"/>
+	<file-action id="replacesymlinkfileaction"
+		impl="com.ibm.ws.pak.internal.utils.fileactions.ReplaceSymLinkFileActionPlugin"/>
+	<file-action id="removesymlinkfileaction"
+		impl="com.ibm.ws.pak.internal.utils.fileactions.RemoveSymLinkFileActionPlugin"/>
+	<file-action id="zipaddfileaction"
+		    impl="com.ibm.ws.pak.internal.utils.fileactions.ZIPAddFileActionPlugin">
+        <param name="extensions" value="pak;zip;jar;PAK;ZIP;JAR;Pak;Zip;Jar"/>
+    </file-action>
+	<file-action id="zipreplacefileaction"
+		    impl="com.ibm.ws.pak.internal.utils.fileactions.ZIPReplaceFileActionPlugin">
+        <param name="extensions" value="pak;zip;jar;PAK;ZIP;JAR;Pak;Zip;Jar"/>
+    </file-action>
+	<file-action id="zipremovefileaction"
+		    impl="com.ibm.ws.pak.internal.utils.fileactions.ZIPRemoveFileActionPlugin">
+        <param name="extensions" value="pak;zip;jar;PAK;ZIP;JAR;Pak;Zip;Jar"/>
+    </file-action>
+</file-actions>

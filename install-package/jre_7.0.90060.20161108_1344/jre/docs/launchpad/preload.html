@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+<HTML lang="en">
+<HEAD>
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+  <script language="javascript">
+
+  function _showPreloadedPage(which,hash) {
+    try {
+      for (var id in top.preloadedpages) {
+        if (which != id && id != "default") {
+          try { document.getElementById("preload_"+id).style.display="none";} catch(e) {}
+        }
+      }
+      try {
+        document.getElementById("preload_"+which).style.display="block";
+        if (typeof hash != 'undefined' && hash != null) {
+          //This first line fixes a caching bug in Firefox... not exactly sure how.  But it does
+          document.getElementById("frame_"+which).contentWindow.scrollTo(0,0);
+          document.getElementById("frame_"+which).contentWindow.location.hash="#" + hash;
+        } else {
+          document.getElementById("frame_"+which).contentWindow.scrollTo(0,0);
+        }
+      } catch(e) { top.logMessage("LPV20002S", which);}
+    } catch(e) { top.logException(e,arguments);}
+  }
+  </script>
+
+</HEAD>
+
+<BODY>
+<div id="container">
+<script src="jscp.js">
+<%@ include file="global.head" %>
+<% loadCSSfiles(DEFAULTCSS); %>
+<%
+top.preloadDocument = document;
+
+top.preloadedpages = property("preload",null);
+if (top.preloadedpages == null) {
+  // Log an error - no preload properties found
+  top.logMessage('LPV20025S', 'preload');
+} else {
+  // Create iframes for each preload item
+  for (var id in top.preloadedpages) {
+    if (id != "default") {
+      var preloaditem = property(id,null);
+      if (preloaditem == null ||
+          typeof preloaditem['prereq'] != "string" ||
+          true == eval(preloaditem['prereq'])) {
+        if (typeof top.preloadedpages['default'] == "string" && top.preloadedpages['default'] == id) {
+          %>
+          <div id="preload_<%= id %>" class="preload" style="display:block;">
+          <%
+        } else {
+          %>
+
+          <div id="preload_<%= id %>" class="preload" style="display:none;">
+          <%
+        } %>
+        <IFRAME name="frame_<%= id %>" id="frame_<%= id %>" src="pageloader.html?<%= top.preloadedpages[id] %>" frameborder="0" border="0" allowTransparency="true" APPLICATION=yes>
+        </iframe>
+        </div>
+
+        <%
+      }
+    }
+  }
+  try
+  {
+
+    //Load any pages loaded via extension
+    var securityFcn = new Function('return window');
+    var extensionDir = top.getNativeFileName(top.STARTINGDIR + "/" + top.RELATIVEDIR + "/" + top.CONTENTDIR + "/" + top.EXTENSIONSDIR);
+
+    var dirs = new Array();
+    if (top.secureDirectoryExists(securityFcn, extensionDir)) {
+      //All sub directories of content/extension.  Presumably, these contain menu extensions
+      dirs = top.secureGetDirectories(securityFcn, extensionDir);
+      //This first collection of directories contains all of parent directories.  These directories should have names that match
+      //the menu a menu id of an existing menu item.  Some of these menus will be discovered automatically.  But from a preload perspective,
+      //the order in which they are discovered probably doesn't matter.
+      for (var i=0; i < dirs.length; i++) {
+        var topLevelFolder = top.getNativeFileName(extensionDir + "/" + dirs[i]);
+        var newMenuFolders = top.secureGetDirectories(securityFcn, topLevelFolder);
+
+        for (var j = 0; j < newMenuFolders.length; j++) {
+          var menuProperties = new Array();
+          var menuDir = top.getNativeFileName(topLevelFolder +"/" + newMenuFolders[j]);
+          top.secureReadPropertiesFile(securityFcn, menuDir , top.EXTENSIONPROPERTIES, menuProperties, top.findProperty('fallBackLocale',self,'en'));
+          //If a preload value is defined, then let's add it to the preload array
+
+          if (typeof menuProperties.preload != "undefined") {
+            var preloadUrl = null;
+			var preloadQuery = '';
+			var queryIndex = menuProperties.preload.indexOf('?');
+			if (queryIndex >= 0)
+			{
+				preloadQuery = menuProperties.preload.substring(queryIndex);
+				menuProperties.preload = menuProperties.preload.substring(0, queryIndex);
+			}
+            try
+            {  
+              preloadUrl = findURL(NO_DISKID, findFileInPaths(NO_DISKID, [menuDir + "/" + top.LOCALE, menuDir + "/" + property('fallBackLocale', 'en'), menuDir], menuProperties.preload) + preloadQuery);
+            }
+            catch(e)
+            {
+              //Just set this to null and let the next if statement handle the message logging
+              preloadUrl = null;
+            }
+
+            if (typeof preloadUrl == "undefined" || preloadUrl == null) {
+              top.logMessage("LPV22036W", menuProperties.preload + preloadQuery, dirs[i] + "/" + newMenuFolders[j]);
+            }
+            //Add the dynamically loaded page to the preload list
+            else {
+              //Make the preload id parentDir/childDir
+              var id = dirs[i] + "/"  + newMenuFolders[j]; 
+              top.preloadedpages[id] = preloadUrl;                               
+              %>
+              <div id="preload_<%= id %>" style="display:none;">
+              <IFRAME id="frame_<%= id %>" src="pageloader.html?<%= top.preloadedpages[id] %>" frameborder="1"  APPLICATION=yes>
+              </iframe>
+              </div>
+              <%
+            }
+          }
+        }
+      }
+    }
+  }
+  catch(e)
+  {
+    top.logException(e);
+  }
+}
+
+top.showPreloadedPage = top.preloadShowPreloadedPage = _showPreloadedPage;
+top.preloadLoaded = true;
+%>
+
+</div>
+<div id="background_image_wrapper">
+	<div id="background_image">    
+    </div>
+</div>
+<div class="backgroundFade" id="backgroundFadeWrapper">
+	<div class="backgroundFade" id="backgroundFade">
+	</div>
+</div>
+</script>
+</BODY>
+</HTML>

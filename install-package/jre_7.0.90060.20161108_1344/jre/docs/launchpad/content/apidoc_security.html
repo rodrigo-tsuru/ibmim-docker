@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2006
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+</head>
+
+<script src="../jscp.js">
+<%
+    	var fallBackLocale=property('fallBackLocale');    	
+%>
+
+<%@ include file="global.head" %>
+
+<% loadCSSfiles(DEFAULTCSS, "content.css"); %>
+
+<body>
+
+<h1><%= property('apidoc_security') %></h1>
+
+<div>
+<p><%= property('overview') %></p>
+
+  <% if ( top.directoryExists( null, "content/apidoc" ) ) { %>
+
+    <ul> 
+
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_certpath' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('certpath_title') %>
+        </a><br />
+        <%= property('certpath_desc') %>
+      </li>
+
+      <li>
+        <a href="javascript:void 0" onclick="top.showPreloadedPage('apidoc_security_jaas')">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('jaas_title') %>
+        </a><br />
+        <%= property('jaas_desc') %>
+      </li>
+
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jce' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('jce_title') %>
+        </a><br />
+        <%= property('jce_desc') %>
+      </li>
+    
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jcefips' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('jcefips_title') %>
+        </a><br />
+        <%= property('jcefips_desc') %>
+      </li>
+    
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jgss' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('jgss_title') %>
+        </a><br />
+        <%= property('jgss_desc') %>
+      </li>
+
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_jsse2' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('jsse2_title') %>
+        </a><br />
+        <%= property('jsse2_desc') %>
+      </li>
+    
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_keycert' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('keycert_title') %>
+        </a><br />
+        <%= property('keycert_desc') %>
+      </li>
+
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_pkcs11impl' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('pkcs11impl_title') %>
+        </a><br />
+        <%= property('pkcs11impl_desc') %>
+      </li>
+    
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_sasl' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('sasl_title') %>
+        </a><br />
+        <%= property('sasl_desc') %>
+      </li>
+    
+      <li>
+        <a href="javascript:void 0" onclick="viewPage(NO_DISKID, findFileInPaths( null, ['content/'+top.LOCALE, 'content/'+fallBackLocale, 'content'], top.parse( property( 'apidoc_dir' ) + property( 'apidoc_xml' ) ) ) )">
+          <img src="./images/popup.gif" alt="<%= property('altImageText') %>" width="25" height="20" border="0">
+          <%= property('xml_title') %>
+        </a><br />
+        <%= property('xml_desc') %>
+      </li>
+
+    </ul>
+
+  <% } else { %>
+
+    <p><%= property('compressed') %></p>
+  
+  <% } %>
+</div>
+
+</script>
+</body>
+
+</html>

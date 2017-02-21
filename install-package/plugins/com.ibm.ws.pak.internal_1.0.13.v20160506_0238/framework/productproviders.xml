@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<products>
+	<supported-products id="selectedproduct"
+			impl="com.ibm.ws.pak.internal.utils.product.ProductPlugin"
+			cache="true">
+			
+		<param name="aggregatedpluginpath" value="products/supported-products/product-plugin"/>
+             		
+        <product-plugin id="wassoafep"
+                impl="com.ibm.ws.pak.internal.utils.product.WASProductPlugin">
+            <param name="offering" value="SCA"/>
+            <param name="offeringname" value="IBM WebSphere Application Server v7.0 Feature Pack for Service Component Architecture v1.0"/>
+            <param name="version" value="&gt;=1.0.0.0"/>
+            <param name="installroot" value="$ITB:P{updiProductBean.installLocation}"/>
+            <param name="componentmaprepository" value="$ITB:P{updiProductBean.installLocation}/properties/version/nif/componentmaps"/>
+            <param name="productgaversion" value="1.0.0.0"/>           
+        </product-plugin>   
+                
+        <product-plugin id="wasweb2fep"
+                impl="com.ibm.ws.pak.internal.utils.product.WASProductPlugin">
+            <param name="offering" value="WEB2FEP"/>
+            <param name="offeringname" value="IBM WebSphere Application Server Feature Pack for Web 2.0"/>
+            <param name="version" value="&gt;=1.0.0.1"/>
+            <param name="installroot" value="$ITB:P{updiProductBean.installLocation}"/>
+            <param name="componentmaprepository" value="$ITB:P{updiProductBean.installLocation}/properties/version/nif/componentmaps"/>
+            <param name="productgaversion" value="1.0.0.1"/>            
+	</product-plugin>
+	                    
+        <product-plugin id="wasbase_V70"
+                impl="com.ibm.ws.pak.internal.utils.product.WASProductPlugin">
+            <param name="offering" value="BASE"/>
+            <param name="offeringname" value="IBM WebSphere Application Server"/>
+            <param name="version" value="&gt;=7.0.0.0"/>
+            <param name="installroot" value="$ITB:P{updiProductBean.installLocation}"/>
+            <param name="componentmaprepository" value="$ITB:P{updiProductBean.installLocation}/properties/version/nif/componentmaps"/>
+            <param name="productgaversion" value="7.0.0.0"/>
+        </product-plugin>  
+    
+        <product-plugin id="wasexpress_V70"
+                impl="com.ibm.ws.pak.internal.utils.product.WASProductPlugin">
+            <param name="offering" value="EXPRESS"/>
+            <param name="offeringname" value="IBM WebSphere Application Server - Express"/>            
+            <param name="version" value="&gt;=7.0.0.0"/>
+            <param name="installroot" value="$ITB:P{updiProductBean.installLocation}"/>
+            <param name="componentmaprepository" value="$ITB:P{updiProductBean.installLocation}/properties/version/nif/componentmaps"/>
+            <param name="productgaversion" value="7.0.0.0"/>
+        </product-plugin>   
+            
+        <product-plugin id="wasnd_V70"
+                impl="com.ibm.ws.pak.internal.utils.product.WASProductPlugin">
+            <param name="offering" value="ND"/>
+            <param name="offeringname" value="IBM WebSphere Application Server Network Deployment"/>
+            <param name="version" value="&gt;=7.0.0.0"/>
+            <param name="installroot" value="$ITB:P{updiProductBean.installLocation}"/>
+            <param name="componentmaprepository" value="$ITB:P{updiProductBean.installLocation}/properties/version/nif/componentmaps"/>
+            <param name="productgaversion" value="7.0.0.0"/>	    
+        </product-plugin>               
+                
+        </supported-products>
+</products>

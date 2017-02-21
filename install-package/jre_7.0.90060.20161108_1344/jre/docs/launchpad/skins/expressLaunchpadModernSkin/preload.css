@@ -1,0 +1,10 @@
+body{
+	margin: 0;
+	padding: 0;
+	background: white;
+	border-<%= bidiString('right','left') %>: 1px solid <%= property('backgroundColor','#6998c8') %>;
+}
+
+#container {
+	background: white;
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<failure-recovery-plugins>
+	<failure-recovery id="failurerecovery"
+		impl="com.ibm.ws.pak.internal.install.failurerecovery.FailureRecoveryPlugin"
+		cache="true">
+            <param name="enabled" value="$ITB:PSA{wsglobalinstallconstantsProductBean.customProperties, enableFailureRecovery}"/>
+            <param name="installroot" value="$ITB:P{updiProductBean.installLocation}"/>
+            <param name="failurerecoverymetadatauri" value="$NIFDEFFSTARGETURI{$NIFP{selectedproduct.backuppath}/update.status.xml}"/>
+            <param name="childpluginsrelativepath" value="stage"/>
+            <param name="backupRepositoryUri" value="$NIFURI{$NIFP{selectedproduct.backuppath}}"/>
+            
+            <stage 
+            	id="preinstall" 
+            	impl="com.ibm.ws.pak.internal.install.failurerecovery.PreinstallStageFailureRecoveryPlugin"/>
+            
+            <stage 
+            	id="install" 
+            	impl="com.ibm.ws.pak.internal.install.failurerecovery.InstallStageFailureRecoveryPlugin"/>
+
+            <stage 
+            	id="postinstall" 
+            	impl="com.ibm.ws.pak.internal.install.failurerecovery.PostinstallStageFailureRecoveryPlugin"/>
+            
+            <stage 
+            	id="preuninstall" 
+            	impl="com.ibm.ws.pak.internal.install.failurerecovery.PreuninstallStageFailureRecoveryPlugin"/>
+            
+            <stage 
+            	id="uninstall" 
+            	impl="com.ibm.ws.pak.internal.install.failurerecovery.UninstallStageFailureRecoveryPlugin"/>
+
+            <stage 
+            	id="postuninstall" 
+            	impl="com.ibm.ws.pak.internal.install.failurerecovery.PostUninstallStageFailureRecoveryPlugin"/>
+
+	
+		<clean-packages id="cleanpackages"
+				impl="com.ibm.ws.pak.internal.install.failurerecovery.CleaningPackagesPlugin">
+			<param name="childpluginsrelativepath" value="target"/>
+          	<param name="enabled" value="$ITB:PSA{wsglobalinstallconstantsProductBean.customProperties, enableFailureRecovery}"/>
+	          <param name="hasFailure" value="$NIFP{failurerecovery.hasFailure}"/>			
+
+			<target id="movefiles"
+					impl="com.ibm.ws.pak.internal.install.failurerecovery.MovingFilesPlugin">
+				<param name="URIsToBeCleaned" value="$NIFP{failurerecovery.URIsOfPackagesToBeCleaned}"/>
+				<param name="targetLocationURI" value ="$NIFURI{$NIFP{selectedproduct.backuppath}}/recovered/$CURRENTTIMESTAMP{yyMMddHHmmss}"/>
+			</target>
+			<target id="cleanstack"
+					impl="com.ibm.ws.pak.internal.install.failurerecovery.CleaningStackPlugin">
+            		<param name="backupRepositoryUri" value="$NIFURI{$NIFP{selectedproduct.backuppath}}"/>
+				<param name="maintenanceNamesOfPackagesToBeCleaned" value="$NIFP{failurerecovery.maintenanceNamesOfPackagesToBeCleaned}"/>
+			</target>
+		</clean-packages>
+	
+		<execute-packages id="executepackages"
+			impl="com.ibm.ws.pak.internal.install.failurerecovery.ExecutingPackagesPlugin">
+		
+				<param name="URIsToBeExecuted" value="$NIFP{failurerecovery.URIsOfPackagesToBeExecuted}"/>
+		
+		</execute-packages>
+
+	</failure-recovery>
+	
+</failure-recovery-plugins>

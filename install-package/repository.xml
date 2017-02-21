@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?repositoryDigest version='0.0.1'?>
+<repositoryDigest>
+  <repository>
+    <property name='LayoutPolicy' value='P1'/>
+    <property name='LayoutPolicyVersion' value='0.0.0.1'/>
+    <property name='PLATFORMS_com.ibm.cic.agent~1.8.6000.20161118_1611' value='os=linux,arch=x86_64'/>
+    <property name='RequireContext' value='InstallKit:im.version=1.8.6,im.internal.version=1.8.6000.20161118_1611,admin=install,user=userinst'/>
+    <offering id='com.ibm.cic.agent' version='1.8.6000.20161118_1611'>
+      <information name='%Offering.name' version='1.8.6'>
+        %Offering.description
+      </information>
+      <property name='offering.type' value=''/>
+      <property name='default.profile' value='IBM Installation Manager'/>
+      <property name='default.user.profile' value=''/>
+      <property name='vendor.name' value='IBM'/>
+      <property name='offering.service.repositories' value='http://public.dhe.ibm.com/software/rationalsdp/v7/im/updates'/>
+      <property name='offering.RequiresAdmin' value='false'/>
+      <property name='supports.console.mode' value='true'/>
+      <property name='offering.SupportsGroupMode' value='true'/>
+      <property name='beta.compatible' value='true'/>
+      <property name='OfferingReference.LicensesKinds' value=''/>
+      <property name='OfferingReference.enablement.lum.id' value=''/>
+      <property name='OfferingReference.enablement.lum.version' value=''/>
+      <property name='supportedPlatforms' value='(|         (&amp; (os=aix) (arch=ppc))         (&amp; (os=hpux) (arch=ia64_32))         (&amp; (os=linux) (| (arch=x86) (arch=x86_64)))         (&amp; (os=linux) (arch=ppc))         (&amp; (os=linux) (arch=ppc64le))         (&amp; (os=linux) (arch=s390))         (&amp; (os=linux) (arch=s390x))         (&amp; (os=macosx) (arch=x86_64))         (&amp; (os=os400) (arch=ppc))         (&amp; (os=solaris) (arch=sparc))         (&amp; (os=solaris) (arch=x86))         (&amp; (os=win32) (| (arch=x86) (arch=x86_64)))         (&amp; (os=zos) (arch=s390))         )'/>
+      <property name='import.profile.validation' value='true'/>
+      <dictionary lang='default'>
+        <property name='Offering.name' value='IBM® Installation Manager'/>
+        <property name='Offering.description' value='The IBM® Installation Manager is a tool that you can use to install and maintain your software packages.'/>
+      </dictionary>
+      <dictionary lang='zh'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager 是可用于安装和维护软件包的工具。'/>
+      </dictionary>
+      <dictionary lang='fi'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager -asennusohjelman avulla voit asentaa ohjelmistopaketit ja niiden päivitykset.'/>
+      </dictionary>
+      <dictionary lang='zh_TW'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager 是可讓您用來安裝和維護軟體套件的工具。'/>
+      </dictionary>
+      <dictionary lang='ar'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='يعد IBM Installation Manager أداة يمكنك استخدامها لتركيب وصيانة مجموعات البرامج للبرنامج الخاص بك.'/>
+      </dictionary>
+      <dictionary lang='de'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager ist ein Tool, mit dem Sie Ihre Softwarepakete installieren und verwalten können.'/>
+      </dictionary>
+      <dictionary lang='no'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager er et verktøy du kan bruke til å installere og vedlikeholde programvarepakkene dine.'/>
+      </dictionary>
+      <dictionary lang='sl'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager je orodje, s katerim lahko nameščate in vzdržujete pakete programske opreme.'/>
+      </dictionary>
+      <dictionary lang='th'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager คือเครื่องมือที่คุณสามารถใช้เพื่อติดตั้งและรักษาแพ็จเกจซอฟต์แวร์ของคุณ'/>
+      </dictionary>
+      <dictionary lang='tr'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager, yazılım paketlerinizi kurmak ve bakımını yapmak için kullanabileceğiniz bir araçtır.'/>
+      </dictionary>
+      <dictionary lang='pt_BR'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='O IBM Installation Manager é uma ferramenta que pode ser usada para instalar e manter pacotes de software.'/>
+      </dictionary>
+      <dictionary lang='fr'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager est un outil qui permet d&apos;installer et de tenir à jour les packages de logiciel.'/>
+      </dictionary>
+      <dictionary lang='zh_HK'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager 是可讓您用來安裝和維護軟體套件的工具。'/>
+      </dictionary>
+      <dictionary lang='nl'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager is een hulpprogramma voor installatie en onderhoud van uw softwarepakketten.'/>
+      </dictionary>
+      <dictionary lang='iw'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager הוא כלי שתוכלו להשתמש בו להתקנה ותחזוקה של מארזי התוכנה שלכם.'/>
+      </dictionary>
+      <dictionary lang='hr'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager je alat koji možete koristiti za instaliranje i održavanje svojih softverskih paketa.'/>
+      </dictionary>
+      <dictionary lang='el'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='Το IBM Installation Manager είναι ένα εργαλείο που μπορείτε να χρησιμοποιήσετε για την εγκατάσταση και συντήρηση των πακέτων λογισμικού σας.'/>
+      </dictionary>
+      <dictionary lang='es'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager es una herramienta que puede utilizar para instalar y mantener los paquetes de software.'/>
+      </dictionary>
+      <dictionary lang='ja'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager は、ソフトウェア・パッケージをインストールおよび保守するために使用できるツールです。'/>
+      </dictionary>
+      <dictionary lang='hu'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='Az IBM Installation Manager szoftvercsomagok telepítésére és karbantartására szolgáló eszköz.'/>
+      </dictionary>
+      <dictionary lang='ko'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager는 소프트웨어 패키지를 설치 및 유지보수하는 데 사용할 수 있는 도구입니다.'/>
+      </dictionary>
+      <dictionary lang='sk'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager je nástroj, ktorý môžete používať na inštaláciu a údržbu vašich softvérových balíkov.'/>
+      </dictionary>
+      <dictionary lang='it'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager è uno strumento che può essere utilizzato per installare e gestire i package di software.'/>
+      </dictionary>
+      <dictionary lang='cs'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='Produkt IBM Installation Manager je nástroj, který lze použít k instalaci a údržbě softwarových balíků.'/>
+      </dictionary>
+      <dictionary lang='sv'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager är ett verktyg som du kan använda för att installera och underhålla dina programvarupaket.'/>
+      </dictionary>
+      <dictionary lang='da'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager er et værktøj, du kan bruge til at installere og vedligeholde dine softwarepakker.'/>
+      </dictionary>
+      <dictionary lang='ru'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='IBM Installation Manager - это инструмент для установки и обслуживания пакетов ПО.'/>
+      </dictionary>
+      <dictionary lang='pl'>
+        <property name='Offering.name' value='IBM Installation Manager'/>
+        <property name='Offering.description' value='Program IBM Installation Manager to narzędzie używane do instalowania i konserwowania pakietów oprogramowania.'/>
+      </dictionary>
+      <file name='Offerings/com.ibm.cic.agent_1.8.6000.20161118_1611.jar' size='20449' MD5='0e5dedd8f0d6f202d365462980e64aaa'/>
+      <file name='Offerings/com.ibm.cic.agent_1.8.6000.20161118_1611_SE.jar' size='90725' MD5='7cc354f5f06de5f40c470e7d8b5acdb3'/>
+    </offering>
+  </repository>
+</repositoryDigest>

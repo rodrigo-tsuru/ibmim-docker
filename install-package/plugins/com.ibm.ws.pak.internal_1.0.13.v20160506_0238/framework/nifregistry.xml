@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifregistry-plugins>
+	<nifregistry id="nifregistry"
+		impl="com.ibm.ws.pak.internal.install.registry.NIFRegistryPlugin"
+		cache="true">
+    	<param name="registryname" value=".nifregistry"/>
+    	<param name="ccregistryname" value=".ccregistry"/>
+    	<param name="productidoverride" value="$ITB:PSA{wsglobalinstallconstantsProductBean.customProperties, productidoverride}"/>
+    </nifregistry>
+</nifregistry-plugins>

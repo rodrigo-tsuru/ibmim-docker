@@ -1,0 +1,65 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: <%= property('contentColor', property('backgroundColor', '#ffffff')) %>;
+	xborder-<%= bidiString('right','left') %>: 1px solid <%= property('backgroundColor','#6998c8') %>;
+}
+
+.preload {
+	width: 100%;
+	height: 100%;
+}
+
+#container {
+	height: 100%;
+	margin-<%= bidiString('left','right') %>: 15px;
+}
+
+iframe {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	position: relative;
+	z-index: 1;
+	border: 1px solid gray;
+}
+
+#background_image_wrapper {
+	width: 200%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	top: 0;	left: -<%= property('navigationWidth', '250') %>px;
+}
+
+#background_image{
+	width: 200%;
+	height: 200%;
+	position: absolute;
+	bottom: -<%= top.evalJSCP(property('footerHeight', '30')) %>px;
+	background-image: url(<%= findURL(null, property('contentImage', 'images/transparent.gif')) %>);
+	background-position: bottom <%= bidiString('right','left') %>;
+}
+
+.backgroundFade {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	background-repeat: repeat-x;
+}
+#backgroundFadeWrapper {
+	<%= (property('highContrast','false') == 'false')?' ':'x' %>filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="<%= findURL(null,property('navigationFadeImage', 'images/fadeFromWhite.png')) %>");
+}
+#backgroundFade {
+	background-image:url(<%= findURL(null,property('navigationFadeImage', 'images/fadeFromWhite.png')) %>);
+	<%= (property('highContrast','false') == 'false')?' ':'x' %>filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}

@@ -1,0 +1,10 @@
+<!-- Licensed Materials - Property of IBM
+     5648-F10 (C) Copyright International Business Machines Corp. 2005
+     All Rights Reserved
+     US Government Users Restricted Rights - Use, duplication or disclosure
+     restricted by GSA ADP Schedule Contract with IBM Corp. -->
+
+<FRAMESET ROWS="80%,*" COLS="100%" RESIZE="yes" frameborder=yes border=1>
+    <FRAME SRC="skins/unittest/unittest.html?urltest=yes,urltest2=no" NAME=root SCROLLING=auto resize marginwidth="0" marginheight="0" frameborder=yes APPLICATION=yes>
+    <FRAME SRC="log.html" NAME=log SCROLLING=auto resize marginwidth="0" marginheight="0" frameborder="yes" APPLICATION=yes>
+</FRAMESET>
